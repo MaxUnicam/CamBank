@@ -4,12 +4,14 @@
   "description": "Backend che espone le api per il portale CamBank.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "Massimiliano Sampaolo",
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.3",
+    "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.11.4"
   }
 }
