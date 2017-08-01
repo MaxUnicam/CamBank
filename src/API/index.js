@@ -4,8 +4,14 @@ var mongoose = require('mongoose');
 var bodyParser  = require('body-parser');
 
 var User = require('./Models/User');
+var BankTransaction = require('./Models/BankTransaction');
 
 var appConfig = require('./config');
+
+
+
+var transactionRoutes = require('./Routes/transactions');
+
 
 
 // Connect to Mongo db
@@ -26,7 +32,7 @@ var app = express();
 var port = 8080;
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
@@ -38,6 +44,11 @@ app.set("superSecret", appConfig.secret);
 app.get("/", (req, res) => {
     res.status(200).send("Questa è la home page");
 });
+
+
+
+app.use("/transactions", transactionRoutes);
+
 
 
 app.post('/authenticate', function(req, res) {
@@ -74,7 +85,6 @@ app.post('/authenticate', function(req, res) {
     });
 
 });
-
 
 
 
