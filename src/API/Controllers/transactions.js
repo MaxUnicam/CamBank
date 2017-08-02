@@ -2,7 +2,20 @@ var BankTransaction = require('../Models/BankTransaction')
 
 
 exports.Detail = function(req, res) {
-    res.status(200).send("I should return the transaction details, if it exists.");
+    var transactionId = req.params.id;
+    BankTransaction.find({ "_id": transactionId }, (error, transaction) => {
+        if (error) {
+            res.status(500).json(error);
+            return;
+        }
+        
+        if (transaction == null) {
+            res.status(404).send("Transaction not found");
+            return;
+        }
+
+        res.status(200).json(transaction);
+    });
 }
 
 
@@ -22,5 +35,18 @@ exports.Create = function(req, res) {
             res.status(500).send("Errore di scrittura");
         else
             res.status(200).send(transaction);
+    });
+}
+
+
+exports.GetIbanTransactions = function(req, res) {
+    var iban = req.params.id;
+    BankTransaction.find({$or: [ { emitterIban: iban }, { receiverIban: iban } ] }, (error, transactions) => {
+        if (error) {
+            res.status(500).json(error);
+            return;
+        }
+        
+        res.status(200).json(transactions);
     });
 }
