@@ -1,5 +1,8 @@
 var BankTransaction = require('../Models/BankTransaction')
 
+var PdfGenerator = require('../pdfgenerator.js');
+const fs = require('fs');
+
 
 exports.Detail = function(req, res) {
     var transactionId = req.params.id;
@@ -48,5 +51,29 @@ exports.GetIbanTransactions = function(req, res) {
         }
         
         res.status(200).json(transactions);
+    });
+}
+
+
+exports.GetTransactionsReport = function(req, res) {
+    var iban = req.params.id;
+    // var limit = req.params.limit;
+
+    BankTransaction.find({$or: [ { emitterIban: iban }, { receiverIban: iban } ] }, (error, transactions) => {
+        if (error) {
+            res.status(500).json(error);
+            return;
+        }
+
+        var generator = new PdfGenerator();
+        var doc = generator.generateTransactionsReport(transactions);
+
+        if (doc == null) {
+            res.status(500);
+            return;
+        }
+            
+        doc.pipe(res);
+        doc.end();
     });
 }
