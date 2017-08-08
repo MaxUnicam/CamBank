@@ -6,8 +6,11 @@ function PdfGenerator(bar) {
     
 }
 
-// class methods
-PdfGenerator.prototype.generateTransactionsReport = function(transactions) {
+/**
+ * Metodi di classe
+ */
+
+PdfGenerator.prototype.GenerateStatusReport = function(transactions) {
     if (transactions == null)
         return null;
 
@@ -52,9 +55,15 @@ PdfGenerator.prototype.generateTransactionsReport = function(transactions) {
     return doc;
 };
 
+
+PdfGenerator.prototype.GenerateTransactionReport = function(transaction) {
+    var doc = new PDFDocument();
+    doc.text(transaction.cause);
+    return doc;
+}
+
+
 module.exports = PdfGenerator;
-
-
 
 
 

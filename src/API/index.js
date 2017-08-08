@@ -10,7 +10,8 @@ var appConfig = require('./config');
 
 
 
-var transactionRoutes = require('./Routes/transactions');
+var transactionsRoutes = require('./Routes/transactions');
+var reportsRoutes = require('./Routes/reports');
 
 
 
@@ -45,9 +46,8 @@ app.get("/", (req, res) => {
     res.status(200).send("Questa è la home page");
 });
 
-
-
-app.use("/transactions", transactionRoutes);
+app.use("/transactions", transactionsRoutes);
+app.use("/reports", reportsRoutes);
 
 
 
@@ -121,15 +121,6 @@ app.use(function(req, res, next) {
 
   }
 });
-
-
-
-
-app.get('/users', function(req, res) {
-    res.status(200).send("Questa è la lista degli utenti con l'utente autenticato");
-});
-
-
 
 
 app.listen(port, (error) => {
