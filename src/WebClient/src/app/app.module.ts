@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
+import { CamBankService } from 'app/services/iCamBankService';
+import { CamBankServiceApi } from 'app/services/camBankService.api';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +17,9 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [
+    { provide: CamBankService, useClass: CamBankServiceApi }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
