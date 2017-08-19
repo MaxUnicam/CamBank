@@ -5,10 +5,10 @@ var transactionsController = require('../Controllers/transactions')
 
 router.get("/:id", transactionsController.Detail);
 
-router.post("/transfers/add", transactionsController.AddTransfer);
-router.post("/phonecharging/add", transactionsController.AddPhoneCharging);
-router.post("/mav/add", transactionsController.AddMav);
+router.post("/add/transfer", transactionsController.AddTransfer);
+router.post("/add/phonecharging", transactionsController.AddPhoneCharging);
+router.post("/add/mav", transactionsController.AddMav);
 
-router.get('/iban/:id', transactionsController.GetIbanTransactions);
+router.get('/', transactionsController.GetIbanTransactions);
 
 module.exports = router;
