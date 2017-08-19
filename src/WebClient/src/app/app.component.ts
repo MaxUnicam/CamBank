@@ -23,20 +23,43 @@ export class AppComponent implements OnInit {
 
     this.token = localStorage.getItem('token');
 
-    // this.cambankService.contacts().then(contacts => {
-    //   this.contacts = contacts;
+    // const contact = { iban: 'iban12', name: 'Privalia' };
+    // this.cambankService.updateContact('iban12', contact).then(response => {
+    //   console.log('Aggiornato');
     // },
     // reason => {
     //   console.log(reason);
     // });
 
-    // this.cambankService.authorize().then(response => {
+    // const contact = { iban: 'iban23', name: 'Privalia' };
+    // this.cambankService.addContact(contact).then(response => {
+    //   console.log('Aggiunto');
+    // },
+    // reason => {
+    //   console.log('Errore');
+    // });
+
+    // this.cambankService.authorize('max', 'pwd').then(response => {
     //   if (!response.success) {
     //     return;
     //   }
     //   this.token = response.token;
     //   localStorage.setItem('token', response.token);
     // });
+
+    // this.cambankService.deleteContact('iban23').then(response => {
+    //   console.log('Eliminato');
+    // },
+    // reason => {
+    //   console.log(reason);
+    // });
+
+    this.cambankService.contacts().then(contacts => {
+      this.contacts = contacts;
+    },
+    reason => {
+      console.log(reason);
+    });
   }
 
 }
