@@ -2,6 +2,7 @@ var express = require('express');
 var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var bodyParser  = require('body-parser');
+var cors = require('cors')
 
 var BankTransaction = require('./Models/BankTransaction');
 
@@ -31,14 +32,14 @@ mongoose.connect(appConfig.mongoConnectionString, {
 var app = express();
 var port = 8080;
 
+// abilito le CORS, da valutare per la consegna
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 // Non - authenticated API
 app.use("/auth", authRoutes);
-app.use("/transactions", transactionsRoutes);
 app.use("/reports", reportsRoutes);
 
 
@@ -77,6 +78,7 @@ app.use(function(req, res, next) {
 
 
 // Authenticated APIs
+app.use("/transactions", transactionsRoutes);
 app.use("/contacts", contactsRoutes);
 
 

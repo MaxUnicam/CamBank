@@ -1,5 +1,8 @@
 var BankTransaction = require('../Models/BankTransaction')
 
+// TODO: Controllare che currentIban salvato nella richiesta matchi con l'iban emettitore o quello ricevente
+// per una sicurezza maggiore
+
 /**
  * Recupero del dettaglio di una transizione
  */
@@ -38,6 +41,12 @@ function GetTransactionFromBody(body, cause) {
 
 
 exports.AddTransfer = function(req, res) {
+    var iban = req.currentIban;
+    if (iban == null) {
+        res.status(401).json('Non sei autenticato. Effettua il login per effettuare un bonifico.');
+        return;
+    }
+
     var body = req.body;
     var transaction = GetTransactionFromBody(body, "Bonifico");
     transaction.save((error) => {
@@ -50,6 +59,12 @@ exports.AddTransfer = function(req, res) {
 
 
 exports.AddPhoneCharging = function(req, res) {
+    var iban = req.currentIban;
+    if (iban == null) {
+        res.status(401).json('Non sei autenticato. Effettua il login per effettuare una ricarica telefonica.');
+        return;
+    }
+
     var body = req.body;
     var transaction = GetTransactionFromBody(body, "Ricarica telefonica");
     transaction.save((error) => {
@@ -61,6 +76,12 @@ exports.AddPhoneCharging = function(req, res) {
 }
 
 exports.AddMav = function(req, res) {
+    var iban = req.currentIban;
+    if (iban == null) {
+        res.status(401).json('Non sei autenticato. Effettua il login per pagare un mav.');
+        return;
+    }
+
     var body = req.body;
     var transaction = GetTransactionFromBody(body, "Mav");
     transaction.save((error) => {
@@ -76,7 +97,12 @@ exports.AddMav = function(req, res) {
  * Lista delle transazioni per account
  */
 exports.GetIbanTransactions = function(req, res) {
-    var iban = req.params.id;
+    var iban = req.currentIban;
+    if (iban == null) {
+        res.status(401).json('Non sei autenticato. Effettua il login per visualizzare le tue transazioni.');
+        return;
+    }
+    
     BankTransaction.find({$or: [ { emitterIban: iban }, { receiverIban: iban } ] }, (error, transactions) => {
         if (error) {
             res.status(500).json(error);
