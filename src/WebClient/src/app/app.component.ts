@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CamBankService } from 'app/services/iCamBankService';
 
 import { IContact } from './shared/models/contact';
+import { IBankTransaction } from './shared/models/bankTransaction';
 
 
 @Component({
@@ -14,14 +15,12 @@ import { IContact } from './shared/models/contact';
 export class AppComponent implements OnInit {
 
   title = 'app works!';
-  token = '';
   contacts: IContact[];
+  transactions: IBankTransaction[];
 
   constructor(private cambankService: CamBankService) { }
 
   ngOnInit() {
-
-    this.token = localStorage.getItem('token');
 
     // const contact = { iban: 'iban12', name: 'Privalia' };
     // this.cambankService.updateContact('iban12', contact).then(response => {
@@ -39,14 +38,6 @@ export class AppComponent implements OnInit {
     //   console.log('Errore');
     // });
 
-    // this.cambankService.authorize('max', 'pwd').then(response => {
-    //   if (!response.success) {
-    //     return;
-    //   }
-    //   this.token = response.token;
-    //   localStorage.setItem('token', response.token);
-    // });
-
     // this.cambankService.deleteContact('iban23').then(response => {
     //   console.log('Eliminato');
     // },
@@ -60,6 +51,22 @@ export class AppComponent implements OnInit {
     reason => {
       console.log(reason);
     });
+
+    this.cambankService.transactions().then(transactions => {
+      this.transactions = transactions;
+    },
+    reason => {
+      console.log(reason);
+    });
+
+    // this.cambankService.transaction('5989dd83a0624d0a34ed2117').then(transaction => {
+    //   this.detailCause = transaction.cause;
+    //   this.detailIban1 = transaction.emitterIban;
+    //   this.detailIban2 = transaction.receiverIban;
+    // },
+    // reason => {
+    //   console.log(reason);
+    // });
   }
 
 }

@@ -4,13 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 import { CamBankService } from 'app/services/iCamBankService';
 import { CamBankServiceApi } from 'app/services/camBankService.api';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
