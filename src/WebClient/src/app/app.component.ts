@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   title = 'app works!';
   contacts: IContact[];
-  transactions: IBankTransaction[];
+  // transactions: IBankTransaction[];
 
   constructor(private cambankService: CamBankService) { }
 
@@ -47,13 +47,6 @@ export class AppComponent implements OnInit {
 
     this.cambankService.contacts().then(contacts => {
       this.contacts = contacts;
-    },
-    reason => {
-      console.log(reason);
-    });
-
-    this.cambankService.transactions().then(transactions => {
-      this.transactions = transactions;
     },
     reason => {
       console.log(reason);

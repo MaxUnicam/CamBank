@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { TransactionsListComponent } from './transactions-list/transactions.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 
 import { CamBankService } from 'app/services/iCamBankService';
@@ -14,6 +15,7 @@ import { CamBankServiceApi } from 'app/services/camBankService.api';
   declarations: [
     AppComponent,
     LoginComponent,
+    TransactionsListComponent,
     SpinnerComponent
   ],
   imports: [
