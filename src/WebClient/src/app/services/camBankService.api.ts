@@ -6,8 +6,10 @@
 import 'rxjs/Rx';
 
 import { CamBankService } from './iCamBankService';
+
 import { IAuthResponse } from '../shared/authResponse';
 import { IContact } from '../shared/models/contact';
+import { IBankTransaction } from '../shared/models/bankTransaction';
 
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -35,6 +37,44 @@ export class CamBankServiceApi implements CamBankService {
             .map(res => res.json() as IAuthResponse)
             .toPromise();
   }
+
+  /*
+   * Metodi per la gestione dei movimenti bancari
+   */
+
+  transactions(): Promise<IBankTransaction[]> {
+    return this.http.get(this.baseUrl + 'transactions/', { headers: this.header })
+            .map(res => res.json() as IBankTransaction[])
+            .toPromise();
+  }
+
+  transaction(transactionId): Promise<IBankTransaction> {
+    return this.http.get(this.baseUrl + 'transactions/' + transactionId, { headers: this.header })
+            .map(res => res.json() as IBankTransaction)
+            .toPromise();
+  }
+
+  addTransfer(transfer): Promise<IBankTransaction> {
+    const body = this.bodyFromBankTransaction(transfer);
+    return this.http.post(this.baseUrl + 'transactions/add/transfer', body, { headers: this.header } )
+            .map(res => res.json() as IBankTransaction)
+            .toPromise();
+  }
+
+  addPhoneCharging(phoneCharging): Promise<IBankTransaction> {
+    const body = this.bodyFromBankTransaction(phoneCharging);
+    return this.http.post(this.baseUrl + 'transactions/add/phoneCharging', body, { headers: this.header } )
+            .map(res => res.json() as IBankTransaction)
+            .toPromise();
+  }
+
+  addMav(mav): Promise<IBankTransaction> {
+    const body = this.bodyFromBankTransaction(mav);
+    return this.http.post(this.baseUrl + 'transactions/add/mav', body, { headers: this.header } )
+            .map(res => res.json() as IBankTransaction)
+            .toPromise();
+  }
+
 
   /*
    * Metodi per la gestione della rubrica dell'utente loggato
@@ -65,5 +105,21 @@ export class CamBankServiceApi implements CamBankService {
             .map(res => res.json() as IContact)
             .toPromise();
   }
+
+
+  /*
+   * Metodi di utilità
+   */
+
+   bodyFromBankTransaction(transaction): object {
+     const body = {
+       emitterIban: transaction.emitterIban,
+       receiverIban: transaction.receiverIban,
+       notes: transaction.notes,
+       amount: transaction.amount,
+       date: transaction.date
+     };
+     return body;
+   }
 
 }

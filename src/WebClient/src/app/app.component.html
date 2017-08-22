@@ -1,6 +1,17 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+    <h1>
+        {{title}}
+      </h1>
 
-Contacts:
-<p *ngFor="let contact of contacts">{{contact.name}}</p>
+      <b>Contacts:</b>
+      <p *ngFor="let contact of contacts">{{contact.name}}</p>
+
+      <br>
+
+      <b>Transactions:</b>
+      <p *ngFor="let transaction of transactions">{{transaction.cause}}</p>
+
+      <br><br>
+
+      <app-login></app-login>
+</div>
