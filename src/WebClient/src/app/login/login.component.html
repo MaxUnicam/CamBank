@@ -25,7 +25,7 @@
 
     <div *ngIf="errorMessage != null" class="alert alert-danger">{{errorMessage}}</div>
 
-    <button type="submit" class="btn btn-success" (click)="login()">Login</button>
+    <button type="submit" class="btn btn-success" (click)="login()" [disabled]="!loginForm.form.valid">Login</button>
 
   </form>
 
