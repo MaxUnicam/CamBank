@@ -5,18 +5,24 @@ var jwt = require('jsonwebtoken');
 
 
 exports.Authenticate = function(req, res) {
+    const username = req.body.name;
+    const password = req.body.password;
+    if (username == null || password == null) {
+        res.status(400).json({ success: false, message: 'Both username and password are required.' });
+        return;
+    }
 
     User.findOne({ name: req.body.name }, function(err, user) {
         if (err)
             throw err;
 
         if (!user) {
-            res.json({ success: false, message: 'Authentication failed. User not found.' });
+            res.status(401).json({ success: false, message: 'Authentication failed. User not found.' });
             return;
         }
 
         if (user.password != req.body.password) {
-            res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+            res.status(401).json({ success: false, message: 'Authentication failed. Wrong password.' });
             return;
         }
         
