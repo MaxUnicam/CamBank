@@ -8,7 +8,7 @@ var BankTransaction = require('../Models/BankTransaction')
  */
 exports.Detail = function(req, res) {
     var transactionId = req.params.id;
-    BankTransaction.find({ "_id": transactionId }, (error, transaction) => {
+    BankTransaction.findById(transactionId, (error, transaction) => {
         if (error) {
             res.status(500).json(error);
             return;
