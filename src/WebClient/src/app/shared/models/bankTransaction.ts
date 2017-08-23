@@ -6,6 +6,6 @@ export interface IBankTransaction {
   receiverIban: string;
   cause: string;
   notes: string;
-  amount: number;
+  amount: any;
   date: Date;
 }

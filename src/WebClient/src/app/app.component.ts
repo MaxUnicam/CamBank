@@ -14,7 +14,6 @@ import { IBankTransaction } from './shared/models/bankTransaction';
 
 export class AppComponent implements OnInit {
 
-  title = 'app works!';
   contacts: IContact[];
   // transactions: IBankTransaction[];
 

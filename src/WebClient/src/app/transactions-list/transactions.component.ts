@@ -26,4 +26,8 @@ export class TransactionsListComponent implements OnInit {
     });
   }
 
+  transactionClicked(transaction) {
+    console.log(transaction.cause);
+  }
+
 }
