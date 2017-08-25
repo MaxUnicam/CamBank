@@ -1,0 +1,8 @@
+<div *ngIf="transaction">
+  <p><b>Emesso da:</b>  {{transaction.emitterIban}}</p>
+  <p><b>Verso:</b>  {{transaction.receiverIban}}</p>
+  <p><b>Causale:</b>  {{transaction.cause}}</p>
+  <p><b>Data:</b>  {{transaction.date | date: "dd/MM/yyyy"}}</p>
+  <p><b>Importo:</b>  {{transaction | decimalAmount: "iban1"}}</p>
+  <p><b>Note:</b>  {{transaction.notes}}</p>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { CamBankService } from 'app/services/iCamBankService';
 
@@ -15,6 +15,11 @@ export class TransactionsListComponent implements OnInit {
 
   transactions: IBankTransaction[];
 
+  @Output()
+  transactionSelected = new EventEmitter<IBankTransaction>();
+  selectedTransaction: IBankTransaction;
+
+
   constructor(private camBankService: CamBankService) { }
 
   ngOnInit() {
@@ -28,6 +33,8 @@ export class TransactionsListComponent implements OnInit {
 
   transactionClicked(transaction) {
     console.log(transaction.cause);
+    this.selectedTransaction = transaction;
+    this.transactionSelected.emit(transaction);
   }
 
 }

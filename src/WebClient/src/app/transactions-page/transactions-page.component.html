@@ -1,0 +1,3 @@
+<transactions-list #master (transactionSelected)="onSelectedTransaction($transaction)"></transactions-list>
+
+<transaction-detail [transaction]="master.selectedTransaction"></transaction-detail>
