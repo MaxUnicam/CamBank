@@ -23,6 +23,7 @@ export class TransactionsListComponent implements OnInit {
   constructor(private camBankService: CamBankService) { }
 
   ngOnInit() {
+    console.log("On init called");
     this.camBankService.transactions().then(transactions => {
       this.transactions = transactions;
     },
