@@ -9,11 +9,21 @@ import { CamBankService } from './iCamBankService';
 
 import { IAuthResponse } from '../shared/authResponse';
 import { IContact } from '../shared/models/contact';
+import { IUser } from '../shared/models/user';
 import { IBankTransaction } from '../shared/models/bankTransaction';
 
-import { Http, RequestOptions, Headers } from '@angular/http';
+import {
+  Http,
+  RequestOptions,
+  Headers,
+  ResponseContentType
+} from '@angular/http';
+
 import { Injectable } from '@angular/core';
 
+
+// TODO: quando ci sono errori di autenticazione bisogna mostrare il componente
+// apposito
 
 @Injectable()
 export class CamBankServiceApi implements CamBankService {
@@ -38,6 +48,13 @@ export class CamBankServiceApi implements CamBankService {
             .toPromise();
   }
 
+  loggedUserIban(): Promise<string> {
+    return this.http.get(this.baseUrl + 'utils/userIban', { headers: this.header })
+            .map(res => res.json() as string)
+            .toPromise();
+  }
+
+
   /*
    * Metodi per la gestione dei movimenti bancari
    */
@@ -50,6 +67,13 @@ export class CamBankServiceApi implements CamBankService {
 
   transaction(transactionId): Promise<IBankTransaction> {
     return this.http.get(this.baseUrl + 'transactions/' + transactionId, { headers: this.header })
+            .map(res => res.json() as IBankTransaction)
+            .toPromise();
+  }
+
+  updateTransactionNotes(transactionId, notes): Promise<IBankTransaction> {
+    const body = { notes: notes };
+    return this.http.put(this.baseUrl + 'transactions/update/' + transactionId, body, { headers: this.header })
             .map(res => res.json() as IBankTransaction)
             .toPromise();
   }
@@ -101,14 +125,38 @@ export class CamBankServiceApi implements CamBankService {
   }
 
   deleteContact(iban): Promise<IContact> {
-    return this.http.delete(this.baseUrl + 'contacts/delete/' + iban, { headers: this.header} )
+    return this.http.delete(this.baseUrl + 'contacts/delete/' + iban, { headers: this.header } )
             .map(res => res.json() as IContact)
             .toPromise();
   }
 
 
   /*
-   * Metodi di utilità
+   * Metodi di recupero dei report
+   */
+
+  statusReport(): Promise<Blob> {
+    let pdfHeader = this.header;
+    pdfHeader.append('Accept', 'application/pdf');
+    return this.http.get(this.baseUrl + 'reports/status', { headers: pdfHeader, responseType: ResponseContentType.Blob })
+            .map(res => new Blob([res.blob()], { type: 'application/pdf' }) )
+            .toPromise();
+  }
+
+
+  /*
+   * Metodi di utilità sul server
+   */
+
+  operators(): Promise<IUser[]> {
+    return this.http.get(this.baseUrl + 'utils/operators', { headers: this.header })
+            .map(res => res.json() as IUser[])
+            .toPromise();
+  }
+
+
+  /*
+   * Metodi di utilità in locale
    */
 
    bodyFromBankTransaction(transaction): object {

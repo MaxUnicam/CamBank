@@ -1,0 +1,8 @@
+.detail-form {
+  width: 60%;
+  margin: 10px auto 20px auto;
+}
+
+input[type="text"][disabled] {
+  color: black;
+}

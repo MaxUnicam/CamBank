@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { CamBankService } from 'app/services/iCamBankService';
 
-import { IUser } from 'app/shared/user';
+import { IUser } from 'app/shared/models/user';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class LoginComponent {
   errorMessage: string;
 
   constructor(private camBankService: CamBankService) {
-    this.user = { name: '', password: '' };
+    this.user = { name: '', password: '', iban: '', email: '', isOperator: false, registrationDate: null };
   }
 
   login() {

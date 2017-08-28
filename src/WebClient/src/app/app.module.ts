@@ -14,6 +14,8 @@ import { NavigationMenuComponent } from './navigation-menu/menu.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { HomeComponent } from './home/home.component';
+import { AddTransactionComponent } from './add-transaction/add-transaction.component';
+import { ProvaComponent } from './prova/prova.component';
 
 import { TransactionCausePipe } from './shared/pipes/transactionCause.pipe';
 import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
@@ -21,10 +23,14 @@ import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
 import { CamBankService } from 'app/services/iCamBankService';
 import { CamBankServiceApi } from 'app/services/camBankService.api';
 
+// TODO: aggiungere grafici riepilogativi della situazione im banca (ng2-charts)
 
 const appRoutes: Routes = [
+  { path: 'test', component: ProvaComponent }, // Da togliere, solo per lo sviluppo
   { path: 'home', component: HomeComponent },
   { path: 'transactions', component: TransactionsPageComponent },
+  { path: 'transactions/add', component: AddTransactionComponent },
+  { path: 'transactions/:id', component: TransactionDetailComponent },
   { path: 'login', component: LoginComponent },
   { path: '',
     redirectTo: '/home',
@@ -47,6 +53,8 @@ const appRoutes: Routes = [
     NotFoundComponent,
     UnauthorizedComponent,
     HomeComponent,
+    AddTransactionComponent,
+    ProvaComponent,
 
     TransactionCausePipe,
     DecimalAmountPipe
@@ -57,7 +65,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      // { enableTracing: true } // <-- debugging purposes only
     )
   ],
   exports: [

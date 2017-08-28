@@ -1,3 +1,8 @@
-<transactions-list #master (transactionSelected)="onSelectedTransaction($transaction)"></transactions-list>
+<div class="actions-menu">
+  <div class="action-items">
+    <button (click)="getStatusReport()">Report</button>
+    <button (click)="openTransactionCreationForm()">Add</button>
+  </div>
+</div>
 
-<transaction-detail [transaction]="master.selectedTransaction"></transaction-detail>
+<transactions-list></transactions-list>

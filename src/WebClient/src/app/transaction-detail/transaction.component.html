@@ -1,8 +1,31 @@
+<button (click)="goBack()">Indietro</button>
+
 <div *ngIf="transaction">
-  <p><b>Emesso da:</b>  {{transaction.emitterIban}}</p>
-  <p><b>Verso:</b>  {{transaction.receiverIban}}</p>
-  <p><b>Causale:</b>  {{transaction.cause}}</p>
-  <p><b>Data:</b>  {{transaction.date | date: "dd/MM/yyyy"}}</p>
-  <p><b>Importo:</b>  {{transaction | decimalAmount: "iban1"}}</p>
-  <p><b>Note:</b>  {{transaction.notes}}</p>
+  <form class="detail-form">
+    <div class="form-group">
+      <label for="emitter">Emesso da</label>
+      <input type="text" class="form-control" id="emitter" value='{{transaction.emitterIban}}' disabled>
+    </div>
+    <div class="form-group">
+      <label for="receiver">Verso</label>
+      <input type="text" class="form-control" id="receivr" value='{{transaction.receiverIban}}' disabled>
+    </div>
+    <div class="form-group">
+      <label for="cause">Causale</label>
+      <input type="text" class="form-control" id="cause" value="{{transaction.cause}}" disabled>
+    </div>
+    <div class="form-group">
+      <label for="date">Data</label>
+      <input type="text" class="form-control" id="date" value="{{transaction.date | date: 'dd/MM/yyyy'}}" disabled>
+    </div>
+    <div class="form-group">
+      <label for="amount">Importo</label>
+      <input type="text" class="form-control" id="amount" value="{{transaction | decimalAmount: 'iban1'}}" disabled>
+    </div>
+    <div class="form-group">
+      <label for="notes">Note</label>
+      <input type="text" class="form-control" id="notes" [(ngModel)]="transaction.notes" name="notes">
+    </div>
+    <button type="submit" class="btn btn-success" (click)="updateNotes()">Modifica</button>
+  </form>
 </div>
