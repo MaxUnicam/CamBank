@@ -1,11 +1,10 @@
 var BankTransaction = require('../Models/BankTransaction')
 
-// TODO: Controllare che currentIban salvato nella richiesta matchi con l'iban emettitore o quello ricevente
-// per una sicurezza maggiore
 
 /**
  * Recupero del dettaglio di una transizione
  */
+
 exports.Detail = function(req, res) {
     var transactionId = req.params.id;
     BankTransaction.findById(transactionId, (error, transaction) => {
@@ -15,7 +14,12 @@ exports.Detail = function(req, res) {
         }
         
         if (transaction == null) {
-            res.status(404).send("Transaction not found");
+            res.status(404).send("Movimento non trovato");
+            return;
+        }
+
+        if (transaction.emitterIban !== req.currentIban && transaction.receiverIban !== req.currentIban) {
+            res.status(401).send("Non puoi accedere a questo movimento");
             return;
         }
 
@@ -49,6 +53,10 @@ exports.AddTransfer = function(req, res) {
 
     var body = req.body;
     var transaction = GetTransactionFromBody(body, "Bonifico");
+    if (!transaction.date)
+        transaction.date = Date.now();
+    transaction.emitterIban = iban;
+
     transaction.save((error) => {
         if (error != null)
             res.status(500).send("Errore di scrittura");
@@ -67,6 +75,10 @@ exports.AddPhoneCharging = function(req, res) {
 
     var body = req.body;
     var transaction = GetTransactionFromBody(body, "Ricarica telefonica");
+    if (!transaction.date)
+        transaction.date = Date.now();
+    transaction.emitterIban = iban;
+
     transaction.save((error) => {
         if (error != null)
             res.status(500).send("Errore di scrittura");
@@ -84,6 +96,10 @@ exports.AddMav = function(req, res) {
 
     var body = req.body;
     var transaction = GetTransactionFromBody(body, "Mav");
+    if (!transaction.date)
+        transaction.date = Date.now();
+    transaction.emitterIban = iban;
+
     transaction.save((error) => {
         if (error != null)
             res.status(500).send("Errore di scrittura");
@@ -94,8 +110,33 @@ exports.AddMav = function(req, res) {
 
 
 /**
- * Lista delle transazioni per account
+ * Modifica delle note associate ad un movimento 
  */
+
+exports.Update = function(req, res) {
+    var transactionId = req.params.id;
+    var notes = req.body.notes;
+
+    BankTransaction.findByIdAndUpdate(transactionId, { $set: { notes: notes } }, { new: true }, (err, transaction) => {
+        if (err) {
+            res.status(500).send('Errore di aggiornamento');
+            return;
+        }
+
+        if (transaction.emitterIban !== req.currentIban && transaction.receiverIban !== req.currentIban) {
+            res.status(401).send("Non puoi accedere a questo moviemnto.");
+            return;
+        }
+        
+        res.status(200).send(transaction);
+    });
+}
+
+
+/**
+ * Lista dei movimenti per account
+ */
+
 exports.GetIbanTransactions = function(req, res) {
     var iban = req.currentIban;
     if (iban == null) {

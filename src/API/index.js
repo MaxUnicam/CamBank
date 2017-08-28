@@ -7,13 +7,18 @@ var cors = require('cors')
 var BankTransaction = require('./Models/BankTransaction');
 
 var appConfig = require('./config');
+var Utils = require('./utils');
 
 var authRoutes = require('./Routes/authenticate');
 var transactionsRoutes = require('./Routes/transactions');
 var reportsRoutes = require('./Routes/reports');
 var contactsRoutes = require('./Routes/contacts');
+var utilsRoutes = require('./Routes/utils');
 
+const utils = new Utils();
 
+// TODO: Generare gli iban secondo le normative italiane
+// TODO: Salvare le password non in chiaro ma il loro hash (algoritmo da scegliere)
 
 // Connect to Mongo db
 var db = mongoose.connection;
@@ -21,7 +26,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log("Correctly connected with database");
 });
-
 
 mongoose.connect(appConfig.mongoConnectionString, {
     useMongoClient: true,
@@ -40,22 +44,17 @@ app.use(bodyParser.json());
 
 // Non - authenticated API
 app.use("/auth", authRoutes);
-app.use("/reports", reportsRoutes);
 
-
-// route middleware to verify a token
+// middleware to verify a token
 app.use(function(req, res, next) {
 
-  // check header or url parameters or post parameters for token
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var token = req.headers['x-access-token'];
 
-  // decode token
   if (token) {
-
     // verifies secret and checks exp
     jwt.verify(token, appConfig.secret, function(err, decoded) {
       if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token. '  });
+        return res.status(401).json({ success: false, message: 'Failed to authenticate token. '  });
       } else {
         // if everything is good, save to request for use in other routes
         req.decoded = decoded;
@@ -65,9 +64,7 @@ app.use(function(req, res, next) {
     });
 
   } else {
-
-    // if there is no token
-    // return an error
+    // if there is no token return an error
     return res.status(403).send({ 
         success: false, 
         message: 'No token provided.' 
@@ -80,7 +77,11 @@ app.use(function(req, res, next) {
 // Authenticated APIs
 app.use("/transactions", transactionsRoutes);
 app.use("/contacts", contactsRoutes);
+app.use("/reports", reportsRoutes);
+app.use("/utils", utilsRoutes);
 
+
+utils.AddDefaultOperators();
 
 app.listen(port, (error) => {
     if (!error)

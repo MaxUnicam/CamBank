@@ -3,7 +3,7 @@ var PdfGenerator = require('../pdfgenerator.js');
 
 
 exports.StatusReport = function(req, res) {
-    var iban = req.params.iban;
+    var iban = req.currentIban;
 
     BankTransaction.find({$or: [ { emitterIban: iban }, { receiverIban: iban } ] }, (error, transactions) => {
         if (error) {
