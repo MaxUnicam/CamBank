@@ -1,10 +1,7 @@
 PDFDocument = require('pdfkit');
-const fs = require('fs');
 
 // Constructor
-function PdfGenerator(bar) {
-    
-}
+function PdfGenerator() { }
 
 /**
  * Metodi di classe
