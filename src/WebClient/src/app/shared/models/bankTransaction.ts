@@ -1,7 +1,5 @@
-// TODO : sostituire il tipo dato della proprietà amount da
-// number ad un numero con precisione decimale
-
 export interface IBankTransaction {
+  _id: string;
   emitterIban: string;
   receiverIban: string;
   cause: string;

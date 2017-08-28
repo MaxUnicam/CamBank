@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CamBankService } from 'app/services/iCamBankService';
 
@@ -15,15 +16,10 @@ export class TransactionsListComponent implements OnInit {
 
   transactions: IBankTransaction[];
 
-  @Output()
-  transactionSelected = new EventEmitter<IBankTransaction>();
-  selectedTransaction: IBankTransaction;
 
-
-  constructor(private camBankService: CamBankService) { }
+  constructor(private camBankService: CamBankService, private router: Router) { }
 
   ngOnInit() {
-    console.log("On init called");
     this.camBankService.transactions().then(transactions => {
       this.transactions = transactions;
     },
@@ -33,9 +29,7 @@ export class TransactionsListComponent implements OnInit {
   }
 
   transactionClicked(transaction) {
-    console.log(transaction.cause);
-    this.selectedTransaction = transaction;
-    this.transactionSelected.emit(transaction);
+    this.router.navigateByUrl('/transactions/' + transaction._id);
   }
 
 }

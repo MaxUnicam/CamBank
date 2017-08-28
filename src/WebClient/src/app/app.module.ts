@@ -23,12 +23,14 @@ import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
 import { CamBankService } from 'app/services/iCamBankService';
 import { CamBankServiceApi } from 'app/services/camBankService.api';
 
+// TODO: aggiungere grafici riepilogativi della situazione im banca (ng2-charts)
 
 const appRoutes: Routes = [
   { path: 'test', component: ProvaComponent }, // Da togliere, solo per lo sviluppo
   { path: 'home', component: HomeComponent },
   { path: 'transactions', component: TransactionsPageComponent },
   { path: 'transactions/add', component: AddTransactionComponent },
+  { path: 'transactions/:id', component: TransactionDetailComponent },
   { path: 'login', component: LoginComponent },
   { path: '',
     redirectTo: '/home',

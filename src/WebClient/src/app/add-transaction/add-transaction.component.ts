@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+
+import { CamBankService } from 'app/services/iCamBankService';
 
 import { IBankTransaction } from 'app/shared/models/bankTransaction';
+import { IUser } from 'app/shared/models/user';
 
 
 @Component({
@@ -8,12 +12,15 @@ import { IBankTransaction } from 'app/shared/models/bankTransaction';
   templateUrl: './add-transaction.component.html'
 })
 
-export class AddTransactionComponent {
+export class AddTransactionComponent implements OnInit {
 
   transaction: IBankTransaction;
+  operators: IUser[];
 
-  constructor() {
+
+  constructor(private location: Location, private camBankService: CamBankService) {
     this.transaction = {
+      _id: '',
       cause: '',
       emitterIban: '',
       receiverIban: '',
@@ -23,10 +30,22 @@ export class AddTransactionComponent {
     };
   }
 
+  ngOnInit() {
+    this.camBankService.operators().then(operators => {
+      this.operators = operators;
+    },
+    reason => {
+      console.log(reason);
+    });
+  }
+
   create() {
     const dateAsString = this.transaction.date;
     this.transaction.date = new Date(dateAsString);
-    console.log(this.transaction);
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

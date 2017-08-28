@@ -35,10 +35,6 @@ export class TransactionCausePipe implements PipeTransform {
       }
     }
 
-    if (value.notes) {
-      userCause += ' [' + value.notes + ']';
-    }
-
     return userCause;
   }
 
