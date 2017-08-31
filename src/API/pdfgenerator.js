@@ -1,5 +1,7 @@
 PDFDocument = require('pdfkit');
 
+const moment = require('moment');
+
 // Constructor
 function PdfGenerator() { }
 
@@ -32,16 +34,16 @@ PdfGenerator.prototype.GenerateStatusReport = function(transactions) {
 
     for (var j=0; j<numberOfPages; j++)
     {
-        var x = transactions.length;
-        for (var i=0; i<rowsPerPage && i<x; i++)
+        for (var i=0; i<rowsPerPage && i<transactions.length; i++)
         {
-            doc.text(transactions[i].date, dateOffset, verticalOffset);
+            const date = moment(transactions[i].date).locale('it').format('DD/MM/YYYY');
+            doc.text(date, dateOffset, verticalOffset);
             doc.text(transactions[i].cause, causeOffset, verticalOffset, causeOptions);
             doc.text(transactions[i].amount + " €", amountOffset, verticalOffset);
             verticalOffset += 50;
         }
 
-        if (j + 1 < numberOfPages) 
+        if (j + 1 < numberOfPages)
         {
             doc.addPage();
             verticalOffset = 80;

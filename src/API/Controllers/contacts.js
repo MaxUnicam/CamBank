@@ -17,7 +17,6 @@ exports.Add = function(req, res) {
 }
 
 
-
 exports.List = function(req, res) {
     var body = req.body;
     var currentIban = req.currentIban;
@@ -28,6 +27,24 @@ exports.List = function(req, res) {
         }
 
         res.status(200).send(contacts);
+    });
+}
+
+
+exports.Detail = function(req, res) {
+    var iban = req.params.iban;
+    if (iban == null) {
+        res.status(400).send("No iban specified in the request.");
+        return;
+    }
+
+    Contact.findOne( { iban: iban }, (error, contact) => {
+        if (error) {
+            res.status(500).send(error);
+            return;
+        }
+
+        res.status(200).send(contact);
     });
 }
 

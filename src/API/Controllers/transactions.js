@@ -39,6 +39,7 @@ function GetTransactionFromBody(body, cause) {
     transaction.notes = body.notes;
     transaction.amount = body.amount;
     transaction.date = body.date;
+    transaction.phoneNumber = body.phoneNumber;
     transaction.cause = cause;
     return transaction;
 }
