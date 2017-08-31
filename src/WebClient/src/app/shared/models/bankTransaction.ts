@@ -6,4 +6,7 @@ export interface IBankTransaction {
   notes: string;
   amount: any;
   date: Date;
+
+  phoneNumber: string;
+  mavId: string;
 }

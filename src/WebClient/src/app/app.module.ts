@@ -15,10 +15,17 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { HomeComponent } from './home/home.component';
 import { AddTransactionComponent } from './add-transaction/add-transaction.component';
+import { ContactsListComponent } from './contacts-list/contacts-list.component';
+import { ContactEditComponent } from './contact-edit/contact-edit.component';
+import { ContactDeleteComponent } from './contact-delete/contact-delete.component';
+import { ContactAddComponent } from './contact-add/contact-add.component';
 import { ProvaComponent } from './prova/prova.component';
 
 import { TransactionCausePipe } from './shared/pipes/transactionCause.pipe';
 import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
+
+import { PhoneNumberValidatorDirective } from './shared/validators/phoneNumberValidator';
+import { AmountValidatorDirective } from './shared/validators/amountValidator';
 
 import { CamBankService } from 'app/services/iCamBankService';
 import { CamBankServiceApi } from 'app/services/camBankService.api';
@@ -31,6 +38,10 @@ const appRoutes: Routes = [
   { path: 'transactions', component: TransactionsPageComponent },
   { path: 'transactions/add', component: AddTransactionComponent },
   { path: 'transactions/:id', component: TransactionDetailComponent },
+  { path: 'contacts', component: ContactsListComponent },
+  { path: 'contacts/add', component: ContactAddComponent },
+  { path: 'contacts/edit/:id', component: ContactEditComponent },
+  { path: 'contacts/delete/:id', component: ContactDeleteComponent },
   { path: 'login', component: LoginComponent },
   { path: '',
     redirectTo: '/home',
@@ -43,6 +54,9 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
+    PhoneNumberValidatorDirective,
+    AmountValidatorDirective,
+
     AppComponent,
     LoginComponent,
     TransactionsListComponent,
@@ -54,6 +68,10 @@ const appRoutes: Routes = [
     UnauthorizedComponent,
     HomeComponent,
     AddTransactionComponent,
+    ContactsListComponent,
+    ContactEditComponent,
+    ContactDeleteComponent,
+    ContactAddComponent,
     ProvaComponent,
 
     TransactionCausePipe,

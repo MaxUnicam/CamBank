@@ -2,29 +2,68 @@
 <form class="detail-form" #transactionForm="ngForm">
   <div class="form-group">
     <label for="cause">Causale</label>
-    <select [(ngModel)]="transaction.cause" class="form-control" id="cause" name="cause">
-      <option [value]="bon">Bonifico</option>
-      <option [value]="ric">Ricarica telefonica</option>
-      <option [value]="mav">Pagamento mav</option>
+    <select class="form-control" id="cause" [(ngModel)]="transaction.cause" name="cause">
+      <option [value]="'bon'">Bonifico</option>
+      <option [value]="'ric'">Ricarica telefonica</option>
+      <option [value]="'mav'">Pagamento mav</option>
     </select>
   </div>
-  <div class="form-group">
-    <label for="receiver">Verso</label>
-    <input type="text" class="form-control" id="receivr" [(ngModel)]='transaction.receiverIban' name="receiverIban">
-  </div>
-  <div class="form-group">
-    <label for="date">Data</label>
-    <input type="text" class="form-control" id="date" [(ngModel)]="transaction.date" name="date">
-  </div>
-  <div class="form-group">
-    <label for="amount">Importo</label>
-    <input type="text" class="form-control" id="amount" [(ngModel)]="transaction.amount" name="amount">
-  </div>
-  <div class="form-group">
-    <label for="notes">Note</label>
-    <input type="text" class="form-control" id="notes" [(ngModel)]="transaction.notes" name="notes">
+
+  <div *ngIf="transaction.cause == 'ric'" class="form-group">
+    <div class="form-group">
+      <label for="ric_receiverIban">Operatore</label>
+      <select class="form-control" id="ric_receiverIban" [(ngModel)]="transaction.receiverIban" name="receiverIban">
+        <option *ngFor="let op of operators" [value]="op.iban">{{op.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="ric_amount">Importo</label>
+      <select class="form-control" id="ric_amount" [(ngModel)]="transaction.amount" name="amount">
+        <option [value]="10">10 €</option>
+        <option [value]="20">20 €</option>
+        <option [value]="50">50 €</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">Numero</label>
+      <input class="form-control" [(ngModel)]="transaction.phoneNumber" name="phoneNumber" id="phoneNumber" required validatePhoneNumber>
+    </div>
   </div>
 
-  <button type="submit" class="btn btn-success" (click)="create()" [disabled]="!transactionForm.form.valid">Create</button>
+  <div *ngIf="transaction.cause == 'bon'">
+    <div class="form-group">
+      <label for="bon_receiver">Verso</label>
+      <input type="text" class="form-control" id="bon_receivr" [(ngModel)]='transaction.receiverIban' name="receiverIban">
+    </div>
+    <div class="form-group">
+      <label for="bon_amount">Importo</label>
+      <input type="text" class="form-control" id="bon_amount" [(ngModel)]="transaction.amount" name="amount" validateAmount>
+    </div>
+     <div class="form-group">
+      <label for="bon_notes">Note</label>
+      <input type="text" class="form-control" id="bon_notes" [(ngModel)]="transaction.notes" name="notes">
+    </div>
+  </div>
+
+
+  <div *ngIf="transaction.cause == 'mav'">
+    <div class="form-group">
+      <label for="mav_amount">Importo</label>
+      <input type="text" class="form-control" id="mav_amount" [(ngModel)]="transaction.amount" name="amount" validateAmount>
+    </div>
+    <div class="form-group">
+      <label for="mav_id">Codice identificativo</label>
+      <input type="text" class="form-control" id="mav_id" [(ngModel)]="transaction.mavId" name="mav_id">
+    </div>
+    <div class="form-group">
+      <label for="mav_notes">Note</label>
+      <input type="text" class="form-control" id="mav_notes" [(ngModel)]="transaction.notes" name="mav_notes">
+    </div>
+  </div>
+
+
+  <button type="submit" class="btn btn-default" (click)="create()" [disabled]="!transactionForm.form.valid">Create</button>
 
 </form>
+
+<!-- TODO: validare il numero di telefono, l'iban e l'importo -->
