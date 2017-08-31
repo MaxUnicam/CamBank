@@ -110,6 +110,12 @@ export class CamBankServiceApi implements CamBankService {
             .toPromise();
   }
 
+  contact(iban): Promise<IContact> {
+    return this.http.get(this.baseUrl + 'contacts/' + iban, { headers: this.header })
+            .map(res => res.json() as IContact)
+            .toPromise();
+  }
+
   addContact(contact): Promise<IContact> {
     const body = { iban: contact.iban, name: contact.name };
     return this.http.post(this.baseUrl + 'contacts/add', body, { headers: this.header })
@@ -165,7 +171,9 @@ export class CamBankServiceApi implements CamBankService {
        receiverIban: transaction.receiverIban,
        notes: transaction.notes,
        amount: transaction.amount,
-       date: transaction.date
+       date: transaction.date,
+       phoneNumber: transaction.phoneNumber,
+       mavId: transaction.mavId
      };
      return body;
    }

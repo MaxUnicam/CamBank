@@ -7,7 +7,7 @@ import { IBankTransaction } from 'app/shared/models/bankTransaction';
 export class TransactionCausePipe implements PipeTransform {
 
   transform(value: IBankTransaction, currentIban:string): string {
-    if (!value || !value.receiverIban || !value.emitterIban || !currentIban) {
+    if (!value || !value.emitterIban || !currentIban) {
       return '';
     }
 
@@ -23,15 +23,15 @@ export class TransactionCausePipe implements PipeTransform {
       } else if (value.cause.toLowerCase() === 'mav') {
         userCause += 'pagato un mav';
       } else if (value.cause.toLowerCase() === 'ricarica telefonica') {
-        userCause += 'effettuato una ricarica telefonica';
+        userCause += 'effettuato una ricarica telefonica al numero ' + value.phoneNumber;
       }
     } else {
       if (value.cause.toLowerCase() === 'bonifico') {
         userCause += 'Hai effettuato un bonifico verso ' + value.receiverIban;
       } else if (value.cause.toLowerCase() === 'mav') {
-        userCause += 'Hai pagato un mav a ' + value.receiverIban;
+        userCause += 'Hai pagato un mav';
       } else if (value.cause.toLowerCase() === 'ricarica telefonica') {
-        userCause += 'Hai effettuato una ricarica telefonica';
+        userCause += 'Hai effettuato una ricarica telefonica al numero ' + value.phoneNumber;
       }
     }
 

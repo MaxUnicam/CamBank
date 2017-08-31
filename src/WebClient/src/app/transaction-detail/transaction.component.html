@@ -18,6 +18,10 @@
       <label for="date">Data</label>
       <input type="text" class="form-control" id="date" value="{{transaction.date | date: 'dd/MM/yyyy'}}" disabled>
     </div>
+    <div class="form-group" *ngIf="transaction.phoneNumber != null">
+      <label for="number">Numero</label>
+      <input type="text" class="form-control" id="number" value="{{transaction.phoneNumber}}" disabled>
+    </div>
     <div class="form-group">
       <label for="amount">Importo</label>
       <input type="text" class="form-control" id="amount" value="{{transaction | decimalAmount: 'iban1'}}" disabled>

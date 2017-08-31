@@ -11,14 +11,20 @@ import { IUser } from 'app/shared/models/user';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   user: IUser;
   isAuthorizing: boolean;
   errorMessage: string;
 
+  isAuthenticated: boolean;
+
   constructor(private camBankService: CamBankService) {
     this.user = { name: '', password: '', iban: '', email: '', isOperator: false, registrationDate: null };
+  }
+
+  ngOnInit() {
+    this.isAuthenticated = localStorage.getItem('token') != null;
   }
 
   login() {
@@ -37,6 +43,11 @@ export class LoginComponent {
         this.errorMessage = 'Errore: credenziali non corrette';
       }
     });
+  }
+
+  logout() {
+    localStorage.setItem('token', null);
+    this.isAuthenticated = false;
   }
 
 }

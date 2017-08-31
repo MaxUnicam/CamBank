@@ -20,6 +20,7 @@ export interface ICamBankService {
 
   // Metodi per gestire la rubrica dell'utente loggato
   contacts(): Promise<IContact[]>;
+  contact(iban): Promise<IContact>;
   addContact(contact): Promise<IContact>;
   updateContact(iban, contact): Promise<IContact>;
   deleteContact(iban): Promise<IContact>;
@@ -45,6 +46,7 @@ export abstract class CamBankService implements ICamBankService {
   abstract addMav(mav): Promise<IBankTransaction>;
 
   abstract contacts(): Promise<IContact[]>;
+  abstract contact(iban): Promise<IContact>;
   abstract addContact(contact): Promise<IContact>;
   abstract updateContact(iban, contact): Promise<IContact>;
   abstract deleteContact(iban): Promise<IContact>;
