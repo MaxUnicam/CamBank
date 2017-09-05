@@ -13,7 +13,7 @@ exports.Add = function(req, res) {
             res.status(500).send("Errore di scrittura");
         else
             res.status(200).send(contact);
-    });        
+    });
 }
 
 
@@ -38,7 +38,7 @@ exports.Detail = function(req, res) {
         return;
     }
 
-    Contact.findOne( { iban: iban }, (error, contact) => {
+    Contact.findOne( { iban: iban }, (error, contact) => {
         if (error) {
             res.status(500).send(error);
             return;
