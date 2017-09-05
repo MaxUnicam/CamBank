@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { CamBankService } from 'app/services/iCamBankService';
 
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,24 +12,18 @@ import { Location } from '@angular/common';
 
 export class BaseDataComponent {
 
-  constructor(protected camBankService: CamBankService) { }
+  constructor(protected camBankService: CamBankService, protected router: Router) { }
 
   protected HandlerError(error) {
-
+    console.log(error);
     switch (error.status) {
       case 401:
-        const body = JSON.parse(error._body);
-        if (body.message.toLowerCase() === 'no token') {
-          console.log('non hai inviato il token sulla richiesta');
-        } else if (body.message.toLowerCase() === 'invalid token') {
-          console.log('hai inviato un token invalido o scaduto');
-        }
+        this.router.navigateByUrl('unauthorized');
         break;
       case 404:
-        console.log('not found');
+        this.router.navigateByUrl('notfound');
         break;
     }
-    console.log(error);
   }
 
 }

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'app/services/iAuthService';
 
-import { BaseDataComponent } from 'app/base-data.component';
-
 import { IUser } from 'app/shared/models/user';
 
 
