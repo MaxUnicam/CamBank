@@ -3,6 +3,7 @@ import 'rxjs/add/operator/switchMap';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { CamBankService } from 'app/services/iCamBankService';
 import { IBankTransaction } from 'app/shared/models/bankTransaction';
@@ -21,8 +22,9 @@ export class TransactionDetailComponent extends BaseLocationDataComponent implem
   id: string;
   transaction: IBankTransaction;
 
-  constructor(cambankService: CamBankService, private route: ActivatedRoute, location: Location) {
-    super(cambankService, location);
+  constructor(cambankService: CamBankService, private route: ActivatedRoute,
+    location: Location, router: Router) {
+    super(cambankService, location, router);
   }
 
   ngOnInit() {

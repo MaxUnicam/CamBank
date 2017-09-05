@@ -20,8 +20,8 @@ export class RegisterComponent extends BaseDataComponent {
   registeredMessage = 'Registrazione avvenuta correttamente. Effettua il login ed inizia ad usare i nostri servizi!';
   registered: boolean;
 
-  constructor(camBankService: CamBankService, private router: Router) {
-    super(camBankService);
+  constructor(camBankService: CamBankService, router: Router) {
+    super(camBankService, router);
     this.user = { name: '', password: '', iban: '', email: '', isOperator: false, registrationDate: null };
   }
 

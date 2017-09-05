@@ -1,0 +1,7 @@
+.container {
+  text-align: center;
+}
+
+.alert-message, .btn-login {
+  margin: 30px 5px 5px 5px;
+}

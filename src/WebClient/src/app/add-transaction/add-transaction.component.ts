@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { CamBankService } from 'app/services/iCamBankService';
@@ -20,8 +22,8 @@ export class AddTransactionComponent extends BaseLocationDataComponent implement
   operators: IUser[];
 
 
-  constructor(location: Location, cambankService: CamBankService) {
-    super(cambankService, location);
+  constructor(location: Location, cambankService: CamBankService, router: Router) {
+    super(cambankService, location, router);
     this.transaction = {
       _id: '',
       cause: '',

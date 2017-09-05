@@ -17,14 +17,18 @@ import { BaseDataComponent } from 'app/base-data.component';
 export class TransactionsListComponent extends BaseDataComponent implements OnInit {
 
   transactions: IBankTransaction[];
-  progressiveBalance = 0;
+  balance: String;
 
 
-  constructor(camBankService: CamBankService, private router: Router) {
-    super(camBankService);
+  constructor(camBankService: CamBankService, router: Router) {
+    super(camBankService, router);
   }
 
   ngOnInit() {
+    this.camBankService.balance().then(balance => {
+      this.balance = balance;
+    });
+
     this.camBankService.transactions().then(transactions => {
       this.transactions = transactions;
     },

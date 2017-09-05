@@ -22,9 +22,6 @@ import {
 import { Injectable } from '@angular/core';
 
 
-// TODO: quando ci sono errori di autenticazione bisogna mostrare il componente
-// apposito
-
 @Injectable()
 export class CamBankServiceApi implements CamBankService {
 
@@ -107,6 +104,12 @@ export class CamBankServiceApi implements CamBankService {
     return this.http.post(this.baseUrl + 'transactions/add/mav', body, { headers: this.header } )
             .map(res => res.json() as IBankTransaction)
             .toPromise();
+  }
+
+  balance(): Promise<String> {
+    return new Promise((resolve, reject) => {
+      resolve('1200.20');
+    });
   }
 
 

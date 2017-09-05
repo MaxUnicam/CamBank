@@ -2,3 +2,17 @@
   background-color: aliceblue;
   cursor: pointer;
 }
+
+.balance-row {
+  text-align: right;
+  font-weight: bold;
+}
+
+.table-hover tbody .balance-row:hover td {
+  background-color: white;
+  cursor: default;
+}
+
+.balance-row .balance-value {
+  text-align: left;
+}

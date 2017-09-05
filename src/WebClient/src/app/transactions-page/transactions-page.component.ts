@@ -16,8 +16,8 @@ import { BaseDataComponent } from 'app/base-data.component';
 
 export class TransactionsPageComponent extends BaseDataComponent {
 
-  constructor(camBankService: CamBankService, private router: Router) {
-    super(camBankService);
+  constructor(camBankService: CamBankService, router: Router) {
+    super(camBankService, router);
   }
 
   getStatusReport() {

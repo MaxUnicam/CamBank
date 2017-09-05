@@ -35,6 +35,7 @@ import { AuthServiceApi } from 'app/services/authenticationService';
 
 
 // TODO: aggiungere grafici riepilogativi della situazione im banca (ng2-charts)
+// TODO: mostrare il saldo del conto corrente
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -47,11 +48,12 @@ const appRoutes: Routes = [
   { path: 'contacts/delete/:id', component: ContactDeleteComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'notfound', component: NotFoundComponent },
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
   },
-  { path: 'unauthorized', component: UnauthorizedComponent},
   { path: '**', component: NotFoundComponent }
 ];
 

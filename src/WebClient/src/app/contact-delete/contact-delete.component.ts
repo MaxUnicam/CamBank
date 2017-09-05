@@ -22,10 +22,9 @@ export class ContactDeleteComponent extends BaseLocationDataComponent {
   constructor(
     private cambankService: CamBankService,
     private route: ActivatedRoute,
-    private router: Router,
-    location: Location
+    router: Router, location: Location
   ) { 
-    super(cambankService, location);
+    super(cambankService, location, router);
   }
 
   ngOnInit() {

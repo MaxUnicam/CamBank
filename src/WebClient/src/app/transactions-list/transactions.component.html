@@ -11,8 +11,14 @@
       <tr *ngFor="let transaction of transactions" (click)="transactionClicked(transaction)">
         <td>{{transaction.date | date: "dd/MM/yyyy"}}</td>
         <td>{{transaction | transactionCause}}</td>
-        <td>{{transaction | decimalAmount: "iban1"}}</td>
+        <td>{{transaction | decimalAmount}}</td>
+      </tr>
+      <tr class="balance-row">
+          <td></td>
+          <td>Saldo</td>
+          <td class="balance-value">{{balance}}</td>
       </tr>
     </tbody>
   </table>
+
 </div>

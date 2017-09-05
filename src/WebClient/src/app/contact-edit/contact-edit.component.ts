@@ -22,10 +22,9 @@ export class ContactEditComponent extends BaseLocationDataComponent implements O
   constructor(
     private cambankService: CamBankService,
     private route: ActivatedRoute,
-    private router: Router,
-    location: Location
+    router: Router, location: Location
   ) {
-    super(cambankService, location);
+    super(cambankService, location, router);
     this.contact = { iban: null, ownerIban: null, name: null }; 
   }
 

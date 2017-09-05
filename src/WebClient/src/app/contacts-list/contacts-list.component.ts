@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 import { IContact } from 'app/shared/models/contact';
 import { CamBankService } from 'app/services/iCamBankService';
 
@@ -16,8 +18,8 @@ export class ContactsListComponent extends BaseDataComponent implements OnInit {
   contacts: IContact[];
 
 
-  constructor(camBankService: CamBankService) { 
-    super(camBankService);
+  constructor(camBankService: CamBankService, router: Router) { 
+    super(camBankService, router);
   }
 
   ngOnInit() {

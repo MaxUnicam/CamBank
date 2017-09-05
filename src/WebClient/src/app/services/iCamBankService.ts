@@ -19,6 +19,8 @@ export interface ICamBankService {
   addPhoneCharging(phoneCharging): Promise<IBankTransaction>;
   addMav(mav): Promise<IBankTransaction>;
 
+  balance(): Promise<String>;
+
   // Metodi per gestire la rubrica dell'utente loggato
   contacts(): Promise<IContact[]>;
   contact(iban): Promise<IContact>;
@@ -49,6 +51,8 @@ export abstract class CamBankService implements ICamBankService {
   abstract addTransfer(transfer): Promise<IBankTransaction>;
   abstract addPhoneCharging(phoneCharging): Promise<IBankTransaction>;
   abstract addMav(mav): Promise<IBankTransaction>;
+
+  abstract balance(): Promise<String>;
 
   abstract contacts(): Promise<IContact[]>;
   abstract contact(iban): Promise<IContact>;
