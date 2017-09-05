@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AuthService } from 'app/services/iAuthService';
+
 
 @Component({
   selector: 'navigation-menu',
@@ -8,5 +10,7 @@ import { Component } from '@angular/core';
 })
 
 export class NavigationMenuComponent {
+
+  constructor(private authService: AuthService) { }
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CamBankService } from 'app/services/iCamBankService';
+import { AuthService } from 'app/services/iAuthService';
+
+import { BaseDataComponent } from 'app/base-data.component';
 
 import { IUser } from 'app/shared/models/user';
 
@@ -11,31 +13,23 @@ import { IUser } from 'app/shared/models/user';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {
-
+export class LoginComponent {
   user: IUser;
   isAuthorizing: boolean;
   errorMessage: string;
 
-  isAuthenticated: boolean;
-
-  constructor(private camBankService: CamBankService) {
+  constructor(private authService: AuthService) {
     this.user = { name: '', password: '', iban: '', email: '', isOperator: false, registrationDate: null };
-  }
-
-  ngOnInit() {
-    this.isAuthenticated = localStorage.getItem('token') != null;
   }
 
   login() {
     this.isAuthorizing = true;
-    this.camBankService.authorize(this.user.name, this.user.password).then(response => {
+    this.authService.authenticate(this.user.name, this.user.password).then(response => {
       this.isAuthorizing = false;
       if (!response.success) {
         this.errorMessage = 'Errore: il server ha riscontrato un problema, riprova il login.';
         return;
       }
-      localStorage.setItem('token', response.token);
     },
     reason => {
       this.isAuthorizing = false;
@@ -46,8 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   logout() {
-    localStorage.setItem('token', null);
-    this.isAuthenticated = false;
+    this.authService.logout();
   }
 
 }

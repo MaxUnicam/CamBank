@@ -3,27 +3,28 @@ import { Component, OnInit } from '@angular/core';
 import { IContact } from 'app/shared/models/contact';
 import { CamBankService } from 'app/services/iCamBankService';
 
+import { BaseDataComponent } from 'app/base-data.component';
+
 
 @Component({
   selector: 'contacts-list',
   templateUrl: './contacts-list.component.html'
 })
 
-export class ContactsListComponent implements OnInit {
+export class ContactsListComponent extends BaseDataComponent implements OnInit {
 
   contacts: IContact[];
 
 
-  constructor(private camBankService: CamBankService) { }
+  constructor(camBankService: CamBankService) { 
+    super(camBankService);
+  }
 
   ngOnInit() {
     this.camBankService.contacts().then(contacts => {
       this.contacts = contacts;
-      // console.log(contacts);
     },
-    reason => {
-      console.log(reason);
-    });
+    reason => this.HandlerError(reason));
   }
 
 }

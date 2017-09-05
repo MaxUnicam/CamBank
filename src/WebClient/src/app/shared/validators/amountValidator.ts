@@ -13,10 +13,14 @@ export class AmountValidatorDirective {}
 
 function validateAmount(c: FormControl) {
   let amount = c.value;
+  if (!amount) {
+    return null;
+  }
+
   amount = amount.replace('€', '');
   amount = amount.replace(' ', '');
 
-  if (!isNaN(amount)){
+  if (!isNaN(amount)) {
     return null;
   } else {
     return { valid: false, errorMessage: 'Hai inserito lettere o simboli non corretti.' };

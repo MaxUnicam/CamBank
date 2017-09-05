@@ -7,6 +7,7 @@ import { IUser } from 'app/shared/models/user';
 export interface ICamBankService {
   // Metodi di autenticazione
   authorize(username, password): Promise<IAuthResponse>;
+  register(email, password, name): Promise<IUser>;
   loggedUserIban(): Promise<string>;
 
   // Metodi per gestire le transazioni dell'utente corrente
@@ -30,11 +31,15 @@ export interface ICamBankService {
 
   // Metodi per il download dei report in pdf
   statusReport(): Promise<Blob>;
+
+  // Metodo per aggiornare gli header delle richieste
+  updateAccessToken(token: string);
 }
 
 
 export abstract class CamBankService implements ICamBankService {
   abstract authorize(username, password): Promise<IAuthResponse>;
+  abstract register(email, password, name): Promise<IUser>;
   abstract loggedUserIban(): Promise<string>;
 
   abstract transactions(): Promise<IBankTransaction[]>;
@@ -54,4 +59,6 @@ export abstract class CamBankService implements ICamBankService {
   abstract operators(): Promise<IUser[]>;
 
   abstract statusReport(): Promise<Blob>;
+
+  abstract updateAccessToken(token: string);
 }
