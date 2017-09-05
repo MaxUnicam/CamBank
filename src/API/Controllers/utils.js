@@ -6,7 +6,7 @@ exports.UserIban = function(req, res) {
         return;
     }
 
-    res.status(200).send(req.currentIban);
+    res.status(200).json(req.currentIban);
 }
 
 
@@ -18,7 +18,6 @@ exports.Operators = function(req, res) {
 
     User.find( { isOperator: true }, (error, operators) => {
         if (error) {
-            console.log(error);
             res.status(500).send("Errore di lettura");
             return;
         }

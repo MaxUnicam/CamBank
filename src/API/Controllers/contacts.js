@@ -13,7 +13,7 @@ exports.Add = function(req, res) {
             res.status(500).send("Errore di scrittura");
         else
             res.status(200).send(contact);
-    });        
+    });
 }
 
 
