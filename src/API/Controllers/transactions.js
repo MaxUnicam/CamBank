@@ -145,7 +145,7 @@ exports.GetIbanTransactions = function(req, res) {
         return;
     }
     
-    BankTransaction.find({$or: [ { emitterIban: iban }, { receiverIban: iban } ] }, (error, transactions) => {
+    BankTransaction.find({ $or:[{ emitterIban: iban }, { receiverIban: iban}] }).sort('date').exec((error, transactions) => {
         if (error) {
             res.status(500).json(error);
             return;
