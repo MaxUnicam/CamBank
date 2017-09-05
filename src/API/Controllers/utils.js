@@ -16,7 +16,7 @@ exports.Operators = function(req, res) {
         return;
     }
 
-    User.find( { isOperator: true }, (error, operators) => {
+    User.find( { isOperator: true }, (error, operators) => {
         if (error) {
             res.status(500).send("Errore di lettura");
             return;

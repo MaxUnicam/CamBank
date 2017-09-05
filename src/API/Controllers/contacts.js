@@ -38,7 +38,7 @@ exports.Detail = function(req, res) {
         return;
     }
 
-    Contact.findOne( { iban: iban }, (error, contact) => {
+    Contact.findOne( { iban: iban }, (error, contact) => {
         if (error) {
             res.status(500).send(error);
             return;
