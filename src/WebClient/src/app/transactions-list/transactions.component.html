@@ -10,7 +10,7 @@
     <tbody>
       <tr *ngFor="let transaction of transactions" (click)="transactionClicked(transaction)">
         <td>{{transaction.date | date: "dd/MM/yyyy"}}</td>
-        <td>{{transaction | transactionCause: "iban1"}}</td>
+        <td>{{transaction | transactionCause}}</td>
         <td>{{transaction | decimalAmount: "iban1"}}</td>
       </tr>
     </tbody>

@@ -5,6 +5,8 @@ import { CamBankService } from 'app/services/iCamBankService';
 
 import { IBankTransaction } from 'app/shared/models/bankTransaction';
 
+import { BaseDataComponent } from 'app/base-data.component';
+
 
 @Component({
   selector: 'transactions-list',
@@ -12,20 +14,21 @@ import { IBankTransaction } from 'app/shared/models/bankTransaction';
   styleUrls: ['./transactions.component.css']
 })
 
-export class TransactionsListComponent implements OnInit {
+export class TransactionsListComponent extends BaseDataComponent implements OnInit {
 
   transactions: IBankTransaction[];
+  progressiveBalance = 0;
 
 
-  constructor(private camBankService: CamBankService, private router: Router) { }
+  constructor(camBankService: CamBankService, private router: Router) {
+    super(camBankService);
+  }
 
   ngOnInit() {
     this.camBankService.transactions().then(transactions => {
       this.transactions = transactions;
     },
-    reason => {
-      console.log(reason);
-    });
+    reason => this.HandlerError(reason));
   }
 
   transactionClicked(transaction) {

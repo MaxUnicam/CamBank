@@ -26,7 +26,7 @@
 
     <button type="submit" class="btn btn-default" (click)="login()" [disabled]="!loginForm.form.valid">Login</button>
 
-    <button type="submit" class="btn btn-default" (click)="logout()" [disabled]="!isAuthenticated">Logout</button>
+    <button type="submit" class="btn btn-default" (click)="logout()" [disabled]="!authService.isAuthenticated()">Logout</button>
 
   </form>
 

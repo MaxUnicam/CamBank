@@ -4,9 +4,10 @@
       <a class="navbar-brand" routerLink="/home">CamBank</a>
     </div>
     <ul class="nav navbar-nav">
-      <li routerLinkActive="active"><a routerLink="/transactions">Il mio conto</a></li>
-      <li routerLinkActive="active"><a routerLink="/contacts">Rubrica</a></li>
+      <li *ngIf="authService.isAuthenticated()" routerLinkActive="active"><a routerLink="/transactions">Il mio conto</a></li>
+      <li *ngIf="authService.isAuthenticated()" routerLinkActive="active"><a routerLink="/contacts">Rubrica</a></li>
       <li routerLinkActive="active"><a routerLink="/login">Login</a></li>
+      <li *ngIf="!authService.isAuthenticated()" routerLinkActive="active"><a routerLink="/register">Registrati</a></li>
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1<span class="caret"></span></a>
         <ul class="dropdown-menu">

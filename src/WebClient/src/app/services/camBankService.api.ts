@@ -34,7 +34,10 @@ export class CamBankServiceApi implements CamBankService {
 
   constructor(private http: Http) {
     const token = localStorage.getItem('token');
-    this.header.append('x-access-token', token);
+    if (token != null && token != 'null') {
+      this.header.append('x-access-token', token);
+    }
+    this.header.append('Access-Control-Allow-Origin', '*');
   }
 
   /*
@@ -45,6 +48,13 @@ export class CamBankServiceApi implements CamBankService {
     const body = {name: username, password: password};
     return this.http.post(this.baseUrl + 'auth', body)
             .map(res => res.json() as IAuthResponse)
+            .toPromise();
+  }
+
+  register(email, password, name): Promise<IUser> {
+    const body = { email: email, password: password, name: name };
+    return this.http.post(this.baseUrl + 'auth/register', body)
+            .map(res => res.json() as IUser)
             .toPromise();
   }
 
@@ -147,6 +157,16 @@ export class CamBankServiceApi implements CamBankService {
     return this.http.get(this.baseUrl + 'reports/status', { headers: pdfHeader, responseType: ResponseContentType.Blob })
             .map(res => new Blob([res.blob()], { type: 'application/pdf' }) )
             .toPromise();
+  }
+
+
+  updateAccessToken(token: string) {
+    if (token == null || token == 'null') {
+      this.header = new Headers();
+      this.header.delete('x-access-token');
+    } else {
+      this.header.set('x-access-token', token);
+    }
   }
 
 

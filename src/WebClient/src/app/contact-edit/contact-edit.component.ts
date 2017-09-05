@@ -7,13 +7,15 @@ import { Router } from '@angular/router';
 import { IContact } from 'app/shared/models/contact';
 import { CamBankService } from 'app/services/iCamBankService';
 
+import { BaseLocationDataComponent } from 'app/base-location-data.component';
+
 
 @Component({
   selector: 'contact-edit',
   templateUrl: './contact-edit.component.html'
 })
 
-export class ContactEditComponent implements OnInit {
+export class ContactEditComponent extends BaseLocationDataComponent implements OnInit {
 
   contact: IContact;
 
@@ -21,8 +23,9 @@ export class ContactEditComponent implements OnInit {
     private cambankService: CamBankService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
-  ) { 
+    location: Location
+  ) {
+    super(cambankService, location);
     this.contact = { iban: null, ownerIban: null, name: null }; 
   }
 
@@ -36,13 +39,7 @@ export class ContactEditComponent implements OnInit {
     this.cambankService.contact(iban).then(contact => {
       this.contact = contact;
     },
-    reason => {
-      console.log(reason);
-    });
-  }
-
-  goBack() {
-    this.location.back();
+    reason => this.HandlerError(reason));
   }
 
   update() {
@@ -50,9 +47,7 @@ export class ContactEditComponent implements OnInit {
     this.cambankService.updateContact(iban, this.contact).then(contact => {
       this.router.navigateByUrl('/contacts');
     },
-    reason => {
-      console.log(reason);
-    });
+    reason => this.HandlerError(reason));
   }
 
 }

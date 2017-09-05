@@ -19,21 +19,24 @@ import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactEditComponent } from './contact-edit/contact-edit.component';
 import { ContactDeleteComponent } from './contact-delete/contact-delete.component';
 import { ContactAddComponent } from './contact-add/contact-add.component';
-import { ProvaComponent } from './prova/prova.component';
+import { RegisterComponent } from './register/register.component';
 
 import { TransactionCausePipe } from './shared/pipes/transactionCause.pipe';
 import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
 
 import { PhoneNumberValidatorDirective } from './shared/validators/phoneNumberValidator';
 import { AmountValidatorDirective } from './shared/validators/amountValidator';
+import { EmailValidatorDirective } from './shared/validators/emailValidator';
 
 import { CamBankService } from 'app/services/iCamBankService';
 import { CamBankServiceApi } from 'app/services/camBankService.api';
+import { AuthService } from 'app/services/iAuthService';
+import { AuthServiceApi } from 'app/services/authenticationService';
+
 
 // TODO: aggiungere grafici riepilogativi della situazione im banca (ng2-charts)
 
 const appRoutes: Routes = [
-  { path: 'test', component: ProvaComponent }, // Da togliere, solo per lo sviluppo
   { path: 'home', component: HomeComponent },
   { path: 'transactions', component: TransactionsPageComponent },
   { path: 'transactions/add', component: AddTransactionComponent },
@@ -43,6 +46,7 @@ const appRoutes: Routes = [
   { path: 'contacts/edit/:id', component: ContactEditComponent },
   { path: 'contacts/delete/:id', component: ContactDeleteComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -56,6 +60,7 @@ const appRoutes: Routes = [
   declarations: [
     PhoneNumberValidatorDirective,
     AmountValidatorDirective,
+    EmailValidatorDirective,
 
     AppComponent,
     LoginComponent,
@@ -72,7 +77,7 @@ const appRoutes: Routes = [
     ContactEditComponent,
     ContactDeleteComponent,
     ContactAddComponent,
-    ProvaComponent,
+    RegisterComponent,
 
     TransactionCausePipe,
     DecimalAmountPipe
@@ -91,7 +96,8 @@ const appRoutes: Routes = [
     DecimalAmountPipe
   ],
   providers: [
-    { provide: CamBankService, useClass: CamBankServiceApi }
+    { provide: CamBankService, useClass: CamBankServiceApi },
+    { provide: AuthService, useClass: AuthServiceApi }
   ],
   bootstrap: [AppComponent]
 })

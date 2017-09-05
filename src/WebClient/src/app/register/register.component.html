@@ -1,0 +1,43 @@
+<div class='container'>
+
+    <form #registerForm="ngForm">
+
+      <div class="form-group">
+        <label for="email">Indirizzo email</label>
+        <input type="text" class="form-control" id="mail" validateEmail
+                [(ngModel)]="user.email" name="mail" #mail="ngModel">
+        <div [hidden]="mail.valid || mail.pristine" class="alert alert-danger">
+          L'indirizzo email che hai inserito non è valido.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Username</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="user.name" name="name">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" required
+                [(ngModel)]="user.password" name="password" #password="ngModel">
+        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+          La password è obbligatoria.
+        </div>
+      </div>
+
+      <spinner *ngIf="isAuthorizing"></spinner>
+
+      <div *ngIf="errorMessage != null" class="alert alert-danger">{{errorMessage}}</div>
+
+      <button type="submit" class="btn btn-default" (click)="register()" [disabled]="!registerForm.form.valid">Registrati</button>
+
+    </form>
+
+    <div class="container" *ngIf="registered">
+      <div class="alert">
+        {{registeredMessage}}
+      </div>
+      <button class="btn btn-default" (click)="goToLogin()">Login</button>
+    </div>
+
+  </div>

@@ -2,12 +2,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { IBankTransaction } from 'app/shared/models/bankTransaction';
 
+import { AuthService } from 'app/services/iAuthService';
+
 
 @Pipe({name: 'transactionCause'})
 export class TransactionCausePipe implements PipeTransform {
 
-  transform(value: IBankTransaction, currentIban:string): string {
-    if (!value || !value.emitterIban || !currentIban) {
+  constructor(private authService: AuthService) { }
+
+
+  transform(value: IBankTransaction): string {
+    const currentIban = this.authService.currentUserIban();
+    if (!currentIban || !value) {
       return '';
     }
 

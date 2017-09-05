@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { CamBankService } from 'app/services/iCamBankService';
 import { IBankTransaction } from 'app/shared/models/bankTransaction';
 
+import { BaseLocationDataComponent } from 'app/base-location-data.component';
+
 
 @Component({
   selector: 'transaction-detail',
@@ -14,16 +16,14 @@ import { IBankTransaction } from 'app/shared/models/bankTransaction';
   templateUrl: './transaction.component.html'
 })
 
-export class TransactionDetailComponent implements OnInit {
+export class TransactionDetailComponent extends BaseLocationDataComponent implements OnInit {
 
   id: string;
   transaction: IBankTransaction;
 
-  constructor(
-    private cambankService: CamBankService,
-    private route: ActivatedRoute,
-    private location: Location
-  ) { }
+  constructor(cambankService: CamBankService, private route: ActivatedRoute, location: Location) {
+    super(cambankService, location);
+  }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
@@ -31,27 +31,19 @@ export class TransactionDetailComponent implements OnInit {
       return;
     }
 
-    this.cambankService.transaction(this.id).then(t => {
+    this.camBankService.transaction(this.id).then(t => {
       this.transaction = t;
     },
-    reason => {
-      console.log(reason);
-    });
+    reason => this.HandlerError(reason));
 
     return this.id;
   }
 
-  goBack(): void {
-    this.location.back();
-  }
-
   updateNotes() {
-    this.cambankService.updateTransactionNotes(this.transaction._id, this.transaction.notes).then(transaction => {
+    this.camBankService.updateTransactionNotes(this.transaction._id, this.transaction.notes).then(transaction => {
       console.log(transaction);
     },
-    reason => {
-      console.log(reason);
-    });
+    reason => this.HandlerError(reason));
   }
 
 }

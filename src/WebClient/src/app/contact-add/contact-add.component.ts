@@ -6,35 +6,28 @@ import { Router } from '@angular/router';
 import { IContact } from 'app/shared/models/contact';
 import { CamBankService } from 'app/services/iCamBankService';
 
+import { BaseLocationDataComponent } from 'app/base-location-data.component';
+
 
 @Component({
   selector: 'contact-add',
   templateUrl: './contact-add.component.html'
 })
 
-export class ContactAddComponent {
+export class ContactAddComponent extends BaseLocationDataComponent {
 
   contact: IContact;
 
-  constructor(
-    private cambankService: CamBankService,
-    private router: Router,
-    private location: Location
-  ) {
+  constructor(cambankService: CamBankService, private router: Router, location: Location) {
+    super(cambankService, location);
     this.contact = { iban: null, ownerIban: null, name: null }; 
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   create() {
-    this.cambankService.addContact(this.contact).then(contact => {
+    this.camBankService.addContact(this.contact).then(contact => {
       this.router.navigateByUrl('/contacts');
     },
-    reason => {
-      console.log(reason);
-    });
+    reason => this.HandlerError);
   }
 
 }

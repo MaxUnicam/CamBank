@@ -5,6 +5,8 @@ import { CamBankService } from 'app/services/iCamBankService';
 
 import { IBankTransaction } from 'app/shared/models/bankTransaction';
 
+import { BaseDataComponent } from 'app/base-data.component';
+
 
 @Component({
   selector: 'transactions-page',
@@ -12,18 +14,18 @@ import { IBankTransaction } from 'app/shared/models/bankTransaction';
   templateUrl: './transactions-page.component.html'
 })
 
-export class TransactionsPageComponent {
+export class TransactionsPageComponent extends BaseDataComponent {
 
-  constructor(private camBankService: CamBankService, private router: Router) { }
+  constructor(camBankService: CamBankService, private router: Router) {
+    super(camBankService);
+  }
 
   getStatusReport() {
     this.camBankService.statusReport().then(report => {
       const fileURL = URL.createObjectURL(report);
       window.open(fileURL);
     },
-    reason => {
-      console.log(reason);
-    });
+    reason => this.HandlerError(reason));
   }
 
   openTransactionCreationForm() {
