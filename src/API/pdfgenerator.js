@@ -56,46 +56,54 @@ PdfGenerator.prototype.GenerateStatusReport = function(transactions) {
 
 
 PdfGenerator.prototype.GenerateTransactionReport = function(transaction) {
+    const titleXOffset = 50;
+    const dataXOffset = 300;
+    let yOffset = 60;
+
     var doc = new PDFDocument();
-    doc.text(transaction.cause);
+
+    doc.font('Helvetica-Bold').text("Identificativo", titleXOffset, yOffset);
+    doc.font('Helvetica').text(transaction._id, dataXOffset, yOffset);
+    yOffset += 40;
+
+    doc.font('Helvetica-Bold').text("Causale", titleXOffset, yOffset);
+    doc.font('Helvetica').text(transaction.cause, dataXOffset, yOffset);
+    yOffset += 40;
+
+    if (transaction.cause === "Ricarica telefonica") {
+        doc.font('Helvetica-Bold').text("Numero", titleXOffset, yOffset);
+        doc.font('Helvetica').text(transaction.phoneNumber, dataXOffset, yOffset);
+        yOffset += 40;
+    } else if (transaction.cause === "Mav") {
+        doc.font('Helvetica-Bold').text("Identificativo mav", titleXOffset, yOffset);
+        doc.font('Helvetica').text(transaction.mavId, dataXOffset, yOffset);
+        yOffset += 40;
+    }
+
+    doc.font('Helvetica-Bold').text("Data", titleXOffset, yOffset);
+    doc.font('Helvetica').text(moment(transaction.date).locale('it').format('DD MMMM YYYY'), dataXOffset, yOffset);
+    yOffset += 40;
+
+    doc.font('Helvetica-Bold').text("Importo", titleXOffset, yOffset);
+    doc.font('Helvetica').text(transaction.amount + " €", dataXOffset, yOffset);
+    yOffset += 40;
+
+    doc.font('Helvetica-Bold').text("Emesso da", titleXOffset, yOffset);
+    doc.font('Helvetica').text(transaction.emitterIban, dataXOffset, yOffset);
+    yOffset += 40;
+
+    if (transaction.cause !== "Mav") {
+        doc.font('Helvetica-Bold').text("Verso", titleXOffset, yOffset);
+        doc.font('Helvetica').text(transaction.receiverIban, dataXOffset, yOffset);
+        yOffset += 40;
+    }    
+
+    doc.font('Helvetica-Bold').text("Note", titleXOffset, yOffset);
+    doc.font('Helvetica').text(transaction.notes, dataXOffset, yOffset);
+    yOffset += 40;
+
     return doc;
 }
 
 
 module.exports = PdfGenerator;
-
-
-
-// var transactions =
-//     [
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"},
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"},
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"},
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"},
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"},
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"},
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"},
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"},
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"},
-//         { date: "11/06/2012", text: "Ciaadoasldallasd"},
-//         { date: "09/07/2006", text: "Italia campione del mondo"},
-//         { date: "11/06/1995", text: "Nasce lu boss"}
-//     ];

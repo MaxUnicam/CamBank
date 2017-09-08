@@ -28,19 +28,19 @@ exports.StatusReport = function(req, res) {
 exports.TransactionReport = function(req, res) {
     var id = req.params.id;
 
-    BankTransaction.find({ "_id": id }, (error, transaction) => {
+    BankTransaction.find({ "_id": id }, (error, transactions) => {
         if (error) {
             res.status(500).json(error);
             return;
         }
         
-        if (transaction == null) {
+        if (transactions == null) {
             res.status(404).send("Transaction not found");
             return;
         }
 
         var generator = new PdfGenerator();
-        var doc = generator.GenerateTransactionReport(transaction);
+        var doc = generator.GenerateTransactionReport(transactions[0]);
 
         if (doc == null) {
             res.status(500);

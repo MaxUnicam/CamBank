@@ -14,10 +14,10 @@ var transactionsRoutes = require('./Routes/transactions');
 var reportsRoutes = require('./Routes/reports');
 var contactsRoutes = require('./Routes/contacts');
 var utilsRoutes = require('./Routes/utils');
+var statisticsRoutes = require('./Routes/statistics');
 
 const utils = new Utils();
 
-// TODO: Generare gli iban secondo le normative italiane
 // TODO: Salvare le password non in chiaro ma il loro hash (algoritmo da scegliere)
 
 // Connect to Mongo db
@@ -79,6 +79,7 @@ app.use("/transactions", transactionsRoutes);
 app.use("/contacts", contactsRoutes);
 app.use("/reports", reportsRoutes);
 app.use("/utils", utilsRoutes);
+app.use("/statistics", statisticsRoutes);
 
 
 utils.AddDefaultOperators();

@@ -154,3 +154,45 @@ exports.GetIbanTransactions = function(req, res) {
         res.status(200).json(transactions);
     });
 }
+
+
+exports.Balance = function(req, res) {
+    var iban = req.currentIban;
+    if (iban == null) {
+        res.status(401).json('Non sei autenticato. Effettua il login per visualizzare il tuo .');
+        return;
+    }
+
+    BankTransaction.aggregate([
+        { $match : { receiverIban: iban } },
+        { $group : { _id : null, total : { $sum : "$amount" } } }
+    ],
+    (incomesErr, incomes) => {
+       if (incomesErr) {
+           res.status(500).json(error);
+           return;
+       }
+
+        BankTransaction.aggregate([
+            { $match : { emitterIban: iban } },
+            { $group : { _id : null, total : { $sum : "$amount" } } }
+        ],
+        (outcomesErr, outcomes) => {
+            if (outcomesErr) {
+                res.status(500).json(error);
+                return;
+            }
+            
+            let totalIncomes = parseFloat("0");
+            if (incomes[0] != null && incomes[0].total != null)
+                totalIncomes = parseFloat(incomes[0].total);
+
+            let totalOutcomes = parseFloat("0");
+            if (outcomes[0] != null && outcomes[0].total != null)
+                totalOutcomes = parseFloat(outcomes[0].total);
+
+            const balance = totalIncomes - totalOutcomes;
+            res.status(200).json(balance + ' €');
+        });
+    })
+}
