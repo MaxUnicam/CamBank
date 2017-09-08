@@ -163,6 +163,15 @@ export class CamBankServiceApi implements CamBankService {
   }
 
 
+  transactionReport(id): Promise<Blob> {
+    let pdfHeader = this.header;
+    pdfHeader.append('Accept', 'application/pdf');
+    return this.http.get(this.baseUrl + 'reports/status/' + id, { headers: pdfHeader, responseType: ResponseContentType.Blob })
+            .map(res => new Blob([res.blob()], { type: 'application/pdf' }) )
+            .toPromise();
+  }
+
+
   updateAccessToken(token: string) {
     if (token == null || token == 'null') {
       this.header = new Headers();

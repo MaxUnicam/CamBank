@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ChartsModule } from 'ng2-charts';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { TransactionsListComponent } from './transactions-list/transactions.component';
@@ -20,6 +22,7 @@ import { ContactEditComponent } from './contact-edit/contact-edit.component';
 import { ContactDeleteComponent } from './contact-delete/contact-delete.component';
 import { ContactAddComponent } from './contact-add/contact-add.component';
 import { RegisterComponent } from './register/register.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 import { TransactionCausePipe } from './shared/pipes/transactionCause.pipe';
 import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
@@ -46,6 +49,7 @@ const appRoutes: Routes = [
   { path: 'contacts/add', component: ContactAddComponent },
   { path: 'contacts/edit/:id', component: ContactEditComponent },
   { path: 'contacts/delete/:id', component: ContactDeleteComponent },
+  { path: 'statistics', component: StatisticsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
@@ -80,6 +84,7 @@ const appRoutes: Routes = [
     ContactDeleteComponent,
     ContactAddComponent,
     RegisterComponent,
+    StatisticsComponent,
 
     TransactionCausePipe,
     DecimalAmountPipe
@@ -88,10 +93,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(
-      appRoutes,
-      // { enableTracing: true } // <-- debugging purposes only
-    )
+    RouterModule.forRoot(appRoutes),
+    ChartsModule
   ],
   exports: [
     TransactionCausePipe,

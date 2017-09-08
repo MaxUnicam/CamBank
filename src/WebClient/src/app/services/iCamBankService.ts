@@ -31,8 +31,11 @@ export interface ICamBankService {
   // Metodi di utilità
   operators(): Promise<IUser[]>;
 
+  outgoings(): Promise<any>;
+
   // Metodi per il download dei report in pdf
   statusReport(): Promise<Blob>;
+  transactionReport(id): Promise<Blob>;
 
   // Metodo per aggiornare gli header delle richieste
   updateAccessToken(token: string);
@@ -62,7 +65,10 @@ export abstract class CamBankService implements ICamBankService {
 
   abstract operators(): Promise<IUser[]>;
 
+  abstract outgoings(): Promise<any>;
+
   abstract statusReport(): Promise<Blob>;
+  abstract transactionReport(id): Promise<Blob>;
 
   abstract updateAccessToken(token: string);
 }
