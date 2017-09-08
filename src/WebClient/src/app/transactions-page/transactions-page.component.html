@@ -1,8 +1,7 @@
 <div class="actions-menu">
-  <div class="action-items">
-    <button (click)="getStatusReport()">Report</button>
-    <button (click)="openTransactionCreationForm()">Add</button>
-  </div>
+  <button class="btn btn-default" (click)="getStatusReport()">Report</button>
+  <button class="btn btn-default" (click)="openTransactionCreationForm()">Aggiungi</button>
+  <button class="btn btn-default" (click)="openStatistics()">Statistiche</button>
 </div>
 
 <transactions-list></transactions-list>

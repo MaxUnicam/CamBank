@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
+
+import { AuthService } from 'app/services/iAuthService';
 
 
 @Component({
@@ -9,9 +11,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./unauthorized.component.css']
 })
 
-export class UnauthorizedComponent {
+export class UnauthorizedComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
+
+
+  ngOnInit() {
+    if (this.authService.isAuthenticated()) {
+      this.authService.logout();
+    }
+  }
 
   goToLogin() {
     this.router.navigateByUrl('/login');

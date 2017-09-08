@@ -107,9 +107,9 @@ export class CamBankServiceApi implements CamBankService {
   }
 
   balance(): Promise<String> {
-    return new Promise((resolve, reject) => {
-      resolve('1200.20');
-    });
+    return this.http.get(this.baseUrl + 'transactions/status/balance', { headers: this.header } )
+            .map(res => res.json() as String)
+            .toPromise();
   }
 
 
