@@ -11,6 +11,8 @@ router.post("/add/mav", transactionsController.AddMav);
 
 router.get('/', transactionsController.GetIbanTransactions);
 
+router.get('/status/balance', transactionsController.Balance);
+
 router.put('/update/:id', transactionsController.Update);
 
 module.exports = router;
