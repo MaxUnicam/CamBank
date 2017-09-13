@@ -3,15 +3,20 @@
     <thead>
       <tr class="tablerow">
         <th width="12%">Data</th>
-        <th width="70%">Causale</th>
+        <th width="62%">Causale</th>
         <th width="18%">Importo</th>
+        <th width="8%">Azioni</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let transaction of transactions" (click)="transactionClicked(transaction)">
+      <tr *ngFor="let transaction of transactions">
         <td>{{transaction.date | date: "dd/MM/yyyy"}}</td>
         <td>{{transaction | transactionCause}}</td>
         <td>{{transaction | decimalAmount}}</td>
+        <td>
+          <a class="action" (click)="downloadReport(transaction._id)"><img width="22" src="assets/icons/pdf.png"></a>
+          <a class="action" (click)="transactionClicked(transaction)"><img width="22" src="assets/icons/report_icon.png"></a>
+        </td>
       </tr>
       <tr class="balance-row">
           <td></td>

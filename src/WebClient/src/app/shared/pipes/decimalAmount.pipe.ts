@@ -13,7 +13,9 @@ export class DecimalAmountPipe implements PipeTransform {
   transform(value: IBankTransaction): string {
     const currentIban = this.authService.currentUserIban();
     let formattedAmount = (value.emitterIban === currentIban) ? '-' : '+';
-    formattedAmount += ' ' + value.amount['$numberDecimal'] + ' €';
+    formattedAmount += ' ';
+    formattedAmount += (value.amount !== null) ? value.amount['$numberDecimal'] : '0';
+    formattedAmount +=  ' €';
     return formattedAmount;
   }
 

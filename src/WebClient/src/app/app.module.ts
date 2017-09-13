@@ -23,9 +23,12 @@ import { ContactDeleteComponent } from './contact-delete/contact-delete.componen
 import { ContactAddComponent } from './contact-add/contact-add.component';
 import { RegisterComponent } from './register/register.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { CurrenciesComponent } from './currencies/currencies.component';
+import { FooterComponent } from './footer/footer.component';
 
 import { TransactionCausePipe } from './shared/pipes/transactionCause.pipe';
 import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
+import { OpenedPipe } from './shared/pipes/opened.pipe';
 
 import { PhoneNumberValidatorDirective } from './shared/validators/phoneNumberValidator';
 import { AmountValidatorDirective } from './shared/validators/amountValidator';
@@ -37,8 +40,11 @@ import { AuthService } from 'app/services/iAuthService';
 import { AuthServiceApi } from 'app/services/authenticationService';
 
 
-// TODO: aggiungere grafici riepilogativi della situazione im banca (ng2-charts)
-// TODO: mostrare il saldo del conto corrente
+// TODO: Le azioni sulla lista delle transizioni
+// TOOD: Scegliere dalla rubrica durante emissione bonifico
+// TODO: Mostrare login e logout a destra sul menu
+// TODO: Paginare le liste
+// TODO: Non permettere di aggiungere transizioni senza valore
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -50,6 +56,7 @@ const appRoutes: Routes = [
   { path: 'contacts/edit/:id', component: ContactEditComponent },
   { path: 'contacts/delete/:id', component: ContactDeleteComponent },
   { path: 'statistics', component: StatisticsComponent },
+  { path: 'currencies', component: CurrenciesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
@@ -85,9 +92,12 @@ const appRoutes: Routes = [
     ContactAddComponent,
     RegisterComponent,
     StatisticsComponent,
+    CurrenciesComponent,
+    FooterComponent,
 
     TransactionCausePipe,
-    DecimalAmountPipe
+    DecimalAmountPipe,
+    OpenedPipe
   ],
   imports: [
     BrowserModule,
@@ -98,7 +108,8 @@ const appRoutes: Routes = [
   ],
   exports: [
     TransactionCausePipe,
-    DecimalAmountPipe
+    DecimalAmountPipe,
+    OpenedPipe
   ],
   providers: [
     { provide: CamBankService, useClass: CamBankServiceApi },

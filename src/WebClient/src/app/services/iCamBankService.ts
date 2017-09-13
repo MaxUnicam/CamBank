@@ -2,6 +2,8 @@ import { IAuthResponse } from '../shared/authResponse';
 import { IContact } from '../shared/models/contact';
 import { IBankTransaction } from '../shared/models/bankTransaction';
 import { IUser } from 'app/shared/models/user';
+import { IOutgoings } from 'app/shared/outgoings';
+import { ICurrencyQuote } from 'app/shared/currencyQuote';
 
 
 export interface ICamBankService {
@@ -31,11 +33,15 @@ export interface ICamBankService {
   // Metodi di utilità
   operators(): Promise<IUser[]>;
 
-  outgoings(): Promise<any>;
+  outgoings(): Promise<IOutgoings>;
 
   // Metodi per il download dei report in pdf
   statusReport(): Promise<Blob>;
   transactionReport(id): Promise<Blob>;
+
+  // Metodi per il download dei dati dei mercati da 1Forge
+  isMarketOpen(): Promise<Boolean>;
+  currenciesQuote(): Promise<ICurrencyQuote[]>;
 
   // Metodo per aggiornare gli header delle richieste
   updateAccessToken(token: string);
@@ -65,10 +71,13 @@ export abstract class CamBankService implements ICamBankService {
 
   abstract operators(): Promise<IUser[]>;
 
-  abstract outgoings(): Promise<any>;
+  abstract outgoings(): Promise<IOutgoings>;
 
   abstract statusReport(): Promise<Blob>;
   abstract transactionReport(id): Promise<Blob>;
+
+  abstract isMarketOpen(): Promise<Boolean>;
+  abstract currenciesQuote(): Promise<ICurrencyQuote[]>;
 
   abstract updateAccessToken(token: string);
 }

@@ -39,4 +39,12 @@ export class TransactionsListComponent extends BaseDataComponent implements OnIn
     this.router.navigateByUrl('/transactions/' + transaction._id);
   }
 
+  downloadReport(id) {
+    this.camBankService.transactionReport(id).then(report => {
+      const fileURL = URL.createObjectURL(report);
+      window.open(fileURL);
+    },
+    reason => this.HandlerError(reason));
+  }
+
 }

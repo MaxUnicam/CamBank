@@ -1,10 +1,26 @@
-<h2>Statistiche</h2>
+<div class="container">
 
-<div class="col-md-6">
-  <canvas baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [chartType]="pieChartType"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
+  <div *ngIf="pieChartData && pieChartData.length > 0" class="col-md-4">
+    <label for="outgoingsPieChart">Partizionamento Uscite</label>
+    <canvas id="outgoingsPieChart" baseChart
+      [data]="pieChartData"
+      [labels]="pieChartLabels"
+      [chartType]="pieChartType"
+      (chartHover)="chartHovered($event)"
+      (chartClick)="chartClicked($event)">
+    </canvas>
+  </div>
+
+  <div class="col-md-7" *ngIf="saldi && saldi.length > 0">
+    <label for="balanceLineChart">Andamento bilancio</label>
+    <canvas id="balanceLineChart" baseChart
+      [data]="saldi"
+      [labels]="saldit"
+      [options]="lineChartOptions"
+      [chartType]="lineChartType"
+      (chartHover)="chartHovered($event)"
+      (chartClick)="chartClicked($event)">
+    </canvas>
+  </div>
+
 </div>
