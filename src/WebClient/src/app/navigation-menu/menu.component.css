@@ -1,4 +1,23 @@
 .navbar-default {
   margin-top: 20px;
   margin-bottom: 40px;
+  background-color: white;
+  border-color: #11349d;
+}
+
+.navbar-icon {
+  width: auto;
+  height: 22px;
+}
+
+.navbar-nav li a {
+  color: #11349d;
+}
+
+.active a {
+  background-color: #dae9ff;
+}
+
+.active a:hover {
+  background-color: #dae9ff;
 }

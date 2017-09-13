@@ -11,6 +11,8 @@ import { IAuthResponse } from '../shared/authResponse';
 import { IContact } from '../shared/models/contact';
 import { IUser } from '../shared/models/user';
 import { IBankTransaction } from '../shared/models/bankTransaction';
+import { IOutgoings } from 'app/shared/outgoings';
+import { ICurrencyQuote } from 'app/shared/currencyQuote';
 
 import {
   Http,
@@ -27,6 +29,9 @@ export class CamBankServiceApi implements CamBankService {
 
   private header = new Headers();
   private baseUrl = 'http://localhost:8080/';
+
+  private baseForgeUrl = 'https://forex.1forge.com/1.0.2/';
+  private forgePrivateKey = 'DpwTPsb4fZczl78Qpmzhadp9IWq1Qwmj';
 
 
   constructor(private http: Http) {
@@ -166,7 +171,7 @@ export class CamBankServiceApi implements CamBankService {
   transactionReport(id): Promise<Blob> {
     let pdfHeader = this.header;
     pdfHeader.append('Accept', 'application/pdf');
-    return this.http.get(this.baseUrl + 'reports/status/' + id, { headers: pdfHeader, responseType: ResponseContentType.Blob })
+    return this.http.get(this.baseUrl + 'reports/' + id, { headers: pdfHeader, responseType: ResponseContentType.Blob })
             .map(res => new Blob([res.blob()], { type: 'application/pdf' }) )
             .toPromise();
   }
@@ -182,6 +187,26 @@ export class CamBankServiceApi implements CamBankService {
   }
 
 
+  /**
+   * Metodi per il download dei dati dei mercati da 1Forge
+   */
+
+  isMarketOpen(): Promise<Boolean> {
+    return this.http.get(this.baseForgeUrl + 'market_status?api_key=' + this.forgePrivateKey)
+            .map(res => res.json().market_is_open)
+            .toPromise();
+  }
+
+
+  currenciesQuote(): Promise<ICurrencyQuote[]> {
+    const changes = 'EURGBP,EURCHF,EURUSD,EURCAD,EURJPY';
+    return this.http.get(this.baseForgeUrl + 'quotes?pairs=' + changes + '&api_key=' + this.forgePrivateKey)
+            .map(res => res.json() as ICurrencyQuote[])
+            .toPromise();
+    // https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,GBPJPY,AUDUSD&api_key=DpwTPsb4fZczl78Qpmzhadp9IWq1Qwmj
+  }
+
+
   /*
    * Metodi di utilità sul server
    */
@@ -189,6 +214,13 @@ export class CamBankServiceApi implements CamBankService {
   operators(): Promise<IUser[]> {
     return this.http.get(this.baseUrl + 'utils/operators', { headers: this.header })
             .map(res => res.json() as IUser[])
+            .toPromise();
+  }
+
+
+  outgoings(): Promise<IOutgoings> {
+    return this.http.get(this.baseUrl + 'statistics/outgoings', { headers: this.header })
+            .map(res => res.json() as IOutgoings)
             .toPromise();
   }
 

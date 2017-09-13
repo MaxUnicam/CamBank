@@ -3,3 +3,32 @@
 input[type="text"][disabled] {
   color: black;
 }
+
+/* Color icon : #11349d */
+
+.btn-default {
+  border-color: #11349d;
+  color: #11349d;
+}
+
+.btn-default[disabled]:hover {
+  border-color: #11349d;
+}
+
+.btn-default:hover {
+  border-color: #11349d;
+  color: #11349d;
+  background-color: #dae9ff;
+}
+
+.btn:active {
+  border-color: #11349d;
+  color: #11349d;
+  background-color: gray;
+}
+
+.btn-default:active {
+  border-color: #11349d important;
+  color: #11349d important;
+  background-color: #8abdff !important;
+}
