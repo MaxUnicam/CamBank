@@ -9,7 +9,7 @@ function PdfGenerator() { }
  * Metodi di classe
  */
 
-PdfGenerator.prototype.GenerateStatusReport = function(transactions) {
+PdfGenerator.prototype.GenerateStatusReport = function(transactions, currentIban, balance) {
     if (transactions == null)
         return null;
 
@@ -19,17 +19,20 @@ PdfGenerator.prototype.GenerateStatusReport = function(transactions) {
     var causeOffset = 150;
     var amountOffset = 480;
     var causeOptions = { width: 310, height: 30, ellipsis: true };
-    var verticalOffset = 120;
+    var verticalOffset = 100;
 
-    doc.fontSize(14);
-    doc.text("Data", dateOffset, 80);
-    doc.text("Causale", causeOffset, 80);
-    doc.text("Importo", amountOffset, 80);
+    doc.image('Assets/cambank_icon.png', 55, 40, { width: 150 });
 
-    doc.fontSize(12);
+    doc.font('Helvetica-Bold').fontSize(14);
+    doc.text("Data", dateOffset, verticalOffset);
+    doc.text("Causale", causeOffset, verticalOffset);
+    doc.text("Importo", amountOffset, verticalOffset);
+
+    doc.font('Helvetica').fontSize(12);
+    verticalOffset += 30;
 
     // 595.28, 841.89
-    var rowsPerPage = Math.round(841.89 / 70);
+    var rowsPerPage = Math.round(841.89 / 60);
     var numberOfPages = Math.ceil(transactions.length / rowsPerPage);
 
     for (var j=0; j<numberOfPages; j++)
@@ -39,8 +42,9 @@ PdfGenerator.prototype.GenerateStatusReport = function(transactions) {
             const date = moment(transactions[i].date).locale('it').format('DD/MM/YYYY');
             doc.text(date, dateOffset, verticalOffset);
             doc.text(transactions[i].cause, causeOffset, verticalOffset, causeOptions);
-            doc.text(transactions[i].amount + " €", amountOffset, verticalOffset);
-            verticalOffset += 50;
+            const sign = (transactions[i].emitterIban === currentIban) ? "- " : "+ ";
+            doc.text(sign + transactions[i].amount + " €", amountOffset, verticalOffset);
+            verticalOffset += 40;
         }
 
         if (j + 1 < numberOfPages)
@@ -50,19 +54,27 @@ PdfGenerator.prototype.GenerateStatusReport = function(transactions) {
             transactions.splice(0, rowsPerPage);
         }
     }
-    
+
+    doc.moveTo(dateOffset, verticalOffset).lineTo(595.28 - dateOffset, verticalOffset).stroke();
+    verticalOffset += 20;
+    doc.font('Helvetica-Bold').text(balance, amountOffset, verticalOffset);
     return doc;
 };
 
 
 PdfGenerator.prototype.GenerateTransactionReport = function(transaction) {
     const titleXOffset = 50;
-    const dataXOffset = 300;
-    let yOffset = 60;
+    const dataXOffset = 280;
+    let yOffset = 40;
 
     var doc = new PDFDocument();
 
-    doc.font('Helvetica-Bold').text("Identificativo", titleXOffset, yOffset);
+    doc.image('Assets/cambank_icon.png', titleXOffset, yOffset, { width: 150 });
+    yOffset += 60;
+    doc.fontSize(15).font('Helvetica-Bold').text("Dettagli transazione", titleXOffset, yOffset);
+    yOffset += 40;
+    
+    doc.fontSize(12).font('Helvetica-Bold').text("Identificativo", titleXOffset, yOffset);
     doc.font('Helvetica').text(transaction._id, dataXOffset, yOffset);
     yOffset += 40;
 
