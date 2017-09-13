@@ -13,20 +13,19 @@ exports.Outgoings = function(req, res) {
     }
 
     BankTransaction.aggregate([
-        { $match : { $and : [ { emitterIban: iban }, { cause : "Ricarica telefonica" } ] } },
-        { $group : { _id : null, charge: { $sum : 1 } } }
+        { $match : { $and : [ { emitterIban: iban }, { cause : "Ricarica telefonica" }] } },
+        { $group : { _id : null, charge: { $sum : "$amount" } } }
     ],
     (chargeEr, charge) => {
-        
         BankTransaction.aggregate([
             { $match : { $and : [ { emitterIban: iban }, { cause : "Mav" }] } },
-            { $group : { _id : null, mav: { $sum : 1 } } }
+            { $group : { _id : null, mav: { $sum : "$amount" } } }
         ], 
         (mavEr, mav) => {
 
             BankTransaction.aggregate([
                 { $match : { $and : [ { emitterIban: iban }, { cause : "Bonifico" } ] } },
-                { $group : { _id : null, transaction: { $sum : 1 } } }
+                { $group : { _id : null, transaction: { $sum : "$amount" } } }
             ], 
             (transEr, trans) => {
 
@@ -36,9 +35,9 @@ exports.Outgoings = function(req, res) {
                 }
 
                 const stats = { 
-                    charge: (charge !== undefined && charge !== null) ? charge[0].charge : 0, 
-                    mav: (mav !== undefined && mav !== null) ? mav[0].mav : 0,
-                    transaction: (trans !== undefined && trans !== null) ? trans[0].transaction : 0
+                    charge: (charge !== undefined && charge.length > 0) ? charge[0].charge : 0, 
+                    mav: (mav !== undefined && mav.length > 0) ? mav[0].mav : 0,
+                    transaction: (trans !== undefined && trans.length > 0) ? trans[0].transaction : 0
                  }
 
                 res.status(200).json(stats);

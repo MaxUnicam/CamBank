@@ -1,4 +1,5 @@
 var BankTransaction = require('../Models/BankTransaction')
+var Decimal = require('decimal.js');
 
 
 /**
@@ -183,15 +184,15 @@ exports.Balance = function(req, res) {
                 return;
             }
             
-            let totalIncomes = parseFloat("0");
+            let totalIncomes = new Decimal('0');
             if (incomes[0] != null && incomes[0].total != null)
-                totalIncomes = parseFloat(incomes[0].total);
+                totalIncomes = new Decimal(incomes[0].total.toString());
 
-            let totalOutcomes = parseFloat("0");
+            let totalOutcomes = new Decimal('0');
             if (outcomes[0] != null && outcomes[0].total != null)
-                totalOutcomes = parseFloat(outcomes[0].total);
+                totalOutcomes = new Decimal(outcomes[0].total.toString());
 
-            const balance = totalIncomes - totalOutcomes;
+            const balance = totalIncomes.minus(totalOutcomes);
             res.status(200).json(balance + ' €');
         });
     })
