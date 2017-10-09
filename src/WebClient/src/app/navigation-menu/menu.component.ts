@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'app/services/iAuthService';
 
@@ -11,6 +12,11 @@ import { AuthService } from 'app/services/iAuthService';
 
 export class NavigationMenuComponent {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/home');
+  }
 
 }

@@ -32,8 +32,4 @@ export class TransactionsPageComponent extends BaseDataComponent {
     this.router.navigateByUrl('/transactions/add');
   }
 
-  openStatistics() {
-    this.router.navigateByUrl('/statistics');
-  }
-
 }

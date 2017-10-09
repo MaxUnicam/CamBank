@@ -19,3 +19,13 @@
 .action:hover {
   cursor: pointer;
 }
+
+.no_transaction {
+  position: absolute;
+  width: 30%;
+  height: 10%;
+  left: 35%;
+  top: 45%;
+  z-index: 10;
+  text-align: center;
+}

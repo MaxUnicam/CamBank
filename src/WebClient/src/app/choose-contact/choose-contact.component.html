@@ -1,0 +1,10 @@
+<div class="table-responsive">
+  <h4>I tuoi contatti</h4>
+  <table class="table table-hover">
+    <tbody>
+      <tr *ngFor="let contact of contacts">
+        <td (click)="OnItemClick(contact)">{{contact.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

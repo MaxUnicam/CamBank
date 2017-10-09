@@ -4,6 +4,10 @@ input[type="text"][disabled] {
   color: black;
 }
 
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: aliceblue;
+}
+
 /* Color icon : #11349d */
 
 .btn-default {
@@ -31,4 +35,9 @@ input[type="text"][disabled] {
   border-color: #11349d important;
   color: #11349d important;
   background-color: #8abdff !important;
+}
+
+.action_icon {
+  width: 22px;
+  margin: 0 5px;
 }
