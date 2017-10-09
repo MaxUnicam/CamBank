@@ -21,3 +21,13 @@
 .active a:hover {
   background-color: #dae9ff;
 }
+
+.center {
+  margin: 15px;
+}
+
+.center a {
+  color: #11349d;
+  cursor: pointer;
+  margin-left: 20px;
+}

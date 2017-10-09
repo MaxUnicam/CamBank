@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'app/services/iAuthService';
 
@@ -16,7 +17,7 @@ export class LoginComponent {
   isAuthorizing: boolean;
   errorMessage: string;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.user = { name: '', password: '', iban: '', email: '', isOperator: false, registrationDate: null };
   }
 
@@ -28,6 +29,7 @@ export class LoginComponent {
         this.errorMessage = 'Errore: il server ha riscontrato un problema, riprova il login.';
         return;
       }
+      this.router.navigateByUrl('/transactions');
     },
     reason => {
       this.isAuthorizing = false;
@@ -35,10 +37,6 @@ export class LoginComponent {
         this.errorMessage = 'Errore: credenziali non corrette';
       }
     });
-  }
-
-  logout() {
-    this.authService.logout();
   }
 
 }

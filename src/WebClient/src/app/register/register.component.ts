@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CamBankService } from 'app/services/iCamBankService';
+import { AuthService } from 'app/services/iAuthService';
 
 import { IUser } from 'app/shared/models/user';
 
@@ -20,7 +21,7 @@ export class RegisterComponent extends BaseDataComponent {
   registeredMessage = 'Registrazione avvenuta correttamente. Effettua il login ed inizia ad usare i nostri servizi!';
   registered: boolean;
 
-  constructor(camBankService: CamBankService, router: Router) {
+  constructor(camBankService: CamBankService, router: Router, private authService: AuthService) {
     super(camBankService, router);
     this.user = { name: '', password: '', iban: '', email: '', isOperator: false, registrationDate: null };
   }

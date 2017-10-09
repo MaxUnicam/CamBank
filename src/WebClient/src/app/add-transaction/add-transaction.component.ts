@@ -13,14 +13,15 @@ import { BaseLocationDataComponent } from 'app/base-location-data.component';
 
 @Component({
   selector: 'add-transaction',
-  templateUrl: './add-transaction.component.html'
+  templateUrl: './add-transaction.component.html',
+  styleUrls: ['./add-transaction.component.css']
 })
 
 export class AddTransactionComponent extends BaseLocationDataComponent implements OnInit {
 
   transaction: IBankTransaction;
   operators: IUser[];
-
+  chooseFromContacts = false;
 
   constructor(location: Location, cambankService: CamBankService, router: Router) {
     super(cambankService, location, router);
@@ -66,6 +67,15 @@ export class AddTransactionComponent extends BaseLocationDataComponent implement
 
   transactionAdded(trans) {
     this.goBack();
+  }
+
+  showContactsList() {
+    this.chooseFromContacts = true;
+  }
+
+  OnSelectedContact(contact) {
+    this.transaction.receiverIban = contact.iban;
+    this.chooseFromContacts = false;
   }
 
 }

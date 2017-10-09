@@ -1,6 +1,6 @@
 <div class='container'>
 
-    <form #registerForm="ngForm">
+    <form #registerForm="ngForm" *ngIf="!registered">
 
       <div class="form-group">
         <label for="email">Indirizzo email</label>
@@ -29,12 +29,14 @@
 
       <div *ngIf="errorMessage != null" class="alert alert-danger">{{errorMessage}}</div>
 
-      <button type="submit" class="btn btn-default" (click)="register()" [disabled]="!registerForm.form.valid">Registrati</button>
+      <button type="submit" class="btn btn-default" (click)="register()" [disabled]="!registerForm.form.valid || authService.isAuthenticated()">
+        Registrati
+      </button>
 
     </form>
 
     <div class="container" *ngIf="registered">
-      <div class="alert">
+      <div class="alert alert-success">
         {{registeredMessage}}
       </div>
       <button class="btn btn-default" (click)="goToLogin()">Login</button>

@@ -1,1 +1,26 @@
-<h2>Questa è la home page</h2>
+<div class="services-container">
+  I nostri servizi:
+  <div class="container">
+      <div class="row">
+        <div class="col-xs-6">
+          <ul class="col">
+            <li>Effettua e ricevi bonifici</li>
+            <li>Effettua ricariche telefoniche e paga mav</li>
+            <li>Gestisci la tua rubrica</li>
+            <li>Visualizza grafici sulla tua situazione bancaria</li>
+            <li>Scarica report dei tuoi movimenti</li>
+            <li>Informati sui cambi delle principali valute</li>
+          </ul>
+        </div>
+        <div class="col-xs-6 button-container">
+          <div class="row">
+              <img class="brand_icon" src="/assets/icons/cambank_icon.png"/>
+          </div>
+          <div class="row" *ngIf="!authService.isAuthenticated()">
+              <a class="btn btn-success" routerLink="/register">Apri un conto</a>
+              <a class="btn btn-default" routerLink="/login">Login</a>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

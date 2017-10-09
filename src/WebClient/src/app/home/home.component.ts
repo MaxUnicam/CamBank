@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 
+import { AuthService } from 'app/services/iAuthService';
+
 
 @Component({
   selector: 'home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 
 export class HomeComponent {
+
+  constructor(private authService: AuthService) { }
 
 }

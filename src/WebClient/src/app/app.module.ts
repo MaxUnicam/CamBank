@@ -25,6 +25,7 @@ import { RegisterComponent } from './register/register.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CurrenciesComponent } from './currencies/currencies.component';
 import { FooterComponent } from './footer/footer.component';
+import { ChooseContactComponent } from './choose-contact/choose-contact.component';
 
 import { TransactionCausePipe } from './shared/pipes/transactionCause.pipe';
 import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
@@ -40,11 +41,9 @@ import { AuthService } from 'app/services/iAuthService';
 import { AuthServiceApi } from 'app/services/authenticationService';
 
 
-// TODO: Le azioni sulla lista delle transizioni
-// TOOD: Scegliere dalla rubrica durante emissione bonifico
-// TODO: Mostrare login e logout a destra sul menu
 // TODO: Paginare le liste
-// TODO: Non permettere di aggiungere transizioni senza valore
+// TODO: Pagina di personalizzazione profilo (email nome utente e pwd)
+// TODO: Registrazione controllare che nome utente e email non esistano
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -94,6 +93,7 @@ const appRoutes: Routes = [
     StatisticsComponent,
     CurrenciesComponent,
     FooterComponent,
+    ChooseContactComponent,
 
     TransactionCausePipe,
     DecimalAmountPipe,
