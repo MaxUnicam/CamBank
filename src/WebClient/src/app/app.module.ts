@@ -30,6 +30,7 @@ import { ChooseContactComponent } from './choose-contact/choose-contact.componen
 import { TransactionCausePipe } from './shared/pipes/transactionCause.pipe';
 import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
 import { OpenedPipe } from './shared/pipes/opened.pipe';
+import { CurrenciesPipe } from './shared/pipes/currencies.pipe';
 
 import { PhoneNumberValidatorDirective } from './shared/validators/phoneNumberValidator';
 import { AmountValidatorDirective } from './shared/validators/amountValidator';
@@ -41,7 +42,7 @@ import { AuthService } from 'app/services/iAuthService';
 import { AuthServiceApi } from 'app/services/authenticationService';
 
 
-// TODO: Paginare le liste
+// TODO: Paginare le liste e/o campi di ricerca
 // TODO: Pagina di personalizzazione profilo (email nome utente e pwd)
 // TODO: Registrazione controllare che nome utente e email non esistano
 
@@ -97,7 +98,8 @@ const appRoutes: Routes = [
 
     TransactionCausePipe,
     DecimalAmountPipe,
-    OpenedPipe
+    OpenedPipe,
+    CurrenciesPipe
   ],
   imports: [
     BrowserModule,
@@ -109,7 +111,8 @@ const appRoutes: Routes = [
   exports: [
     TransactionCausePipe,
     DecimalAmountPipe,
-    OpenedPipe
+    OpenedPipe,
+    CurrenciesPipe
   ],
   providers: [
     { provide: CamBankService, useClass: CamBankServiceApi },

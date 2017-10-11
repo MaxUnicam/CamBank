@@ -4,7 +4,7 @@
 
 <br>
 
-<table class="table table-hover">
+<table class="table table-hover table-striped table-">
   <thead>
     <tr class="tablerow">
       <th>Valute</th>
@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let quote of quotes" (click)="transactionClicked(transaction)">
-      <td>{{quote.symbol}}</td>
+      <td>{{quote.symbol | currencies}}</td>
       <td>{{quote.price}}</td>
       <td>{{quote.bid}}</td>
       <td>{{quote.ask}}</td>

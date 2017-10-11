@@ -17,8 +17,8 @@ import * as Decimal from 'decimal.js/decimal.js';
 })
 
 export class StatisticsComponent extends BaseDataComponent implements OnInit {
-
-  public lineChartType: string = 'line';
+  public thereAreData: boolean;
+  public lineChartType = 'line';
 
   public pieChartLabels: string[] = ['Ricariche telefoniche', 'Pagamenti mav', 'Bonifici'];
   public pieChartData: number[];
@@ -45,6 +45,8 @@ export class StatisticsComponent extends BaseDataComponent implements OnInit {
     reason => this.HandlerError(reason));
 
     this.camBankService.transactions().then(transactions => {
+      this.thereAreData = transactions.length > 0;
+
       const userIban = this.authService.currentUserIban();
 
       transactions.forEach(transaction => {

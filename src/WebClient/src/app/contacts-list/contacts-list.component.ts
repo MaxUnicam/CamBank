@@ -16,7 +16,7 @@ import { BaseDataComponent } from 'app/base-data.component';
 export class ContactsListComponent extends BaseDataComponent implements OnInit {
 
   contacts: IContact[];
-
+  thereAreContacts: boolean;
 
   constructor(camBankService: CamBankService, router: Router) { 
     super(camBankService, router);
@@ -25,8 +25,12 @@ export class ContactsListComponent extends BaseDataComponent implements OnInit {
   ngOnInit() {
     this.camBankService.contacts().then(contacts => {
       this.contacts = contacts;
+      this.thereAreContacts = contacts.length > 0;
     },
-    reason => this.HandlerError(reason));
+    reason => {
+      this.thereAreContacts = false;
+      this.HandlerError(reason)
+    });
   }
 
 }
