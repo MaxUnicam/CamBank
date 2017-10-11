@@ -1,4 +1,5 @@
 module.exports = {
     'secret': 'superSecret',
-    'mongoConnectionString': 'mongodb://localhost/cambank'
+    'mongoConnectionString': 'process.env.MONGODB_URI'
+    // 'mongoConnectionString': 'mongodb://localhost/cambank'
 }
