@@ -18,8 +18,6 @@ var statisticsRoutes = require('./Routes/statistics');
 
 const utils = new Utils();
 
-// TODO: Salvare le password non in chiaro ma il loro hash (algoritmo da scegliere)
-
 // Connect to Mongo db
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -73,7 +71,6 @@ app.use(function(req, res, next) {
   }
 });
 
-
 // Authenticated APIs
 app.use("/transactions", transactionsRoutes);
 app.use("/contacts", contactsRoutes);
@@ -81,7 +78,7 @@ app.use("/reports", reportsRoutes);
 app.use("/utils", utilsRoutes);
 app.use("/statistics", statisticsRoutes);
 
-
+// Effettuiamo il seed del database
 utils.AddDefaultOperators();
 
 app.listen(port, (error) => {

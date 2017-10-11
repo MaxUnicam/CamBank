@@ -20,7 +20,7 @@ function IbanGenerator() {
 IbanGenerator.prototype.GenerateNewIban = function() {
     let accountNumber = uuidv1().toString().toUpperCase();
     // Elimino caratteri che potrebbero essere generati ma non sono ammessi negli iban
-    accountNumber.replace('-', '');
+    accountNumber = replaceAll(accountNumber, '-', '');
     accountNumber = accountNumber.substring(0, 12);
     let iban = this.BankId + this.BranchId + accountNumber;
     const bbanCheckDigit = calculateChecksum(iban, 1);
@@ -42,6 +42,8 @@ IbanGenerator.prototype.GenerateNewIban = function() {
     return checksum.substring(0, chars);
  }
  
-
+replaceAll = function(data, search, replacement) {
+    return data.split(search).join(replacement);
+};
 
 module.exports = IbanGenerator

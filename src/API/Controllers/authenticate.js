@@ -2,6 +2,7 @@ var User = require('../Models/User');
 var config = require('../config');
 
 var jwt = require('jsonwebtoken');
+var crypto = require('crypto');
 
 var IbanGenerator = require('../ibangenerator.js');
 
@@ -14,7 +15,7 @@ exports.Authenticate = function(req, res) {
         return;
     }
 
-    User.findOne({ name: req.body.name }, function(err, user) {
+    User.findOne({ $or: [{ name: req.body.name }, { email: req.body.name }] }, function(err, user) {
         if (err)
             throw err;
 
@@ -23,7 +24,8 @@ exports.Authenticate = function(req, res) {
             return;
         }
 
-        if (user.password != req.body.password) {
+        const password = CalculateSha1(req.body.password);
+        if (user.password != password) {
             res.status(401).json({ success: false, message: 'Authentication failed. Wrong password.' });
             return;
         }
@@ -48,25 +50,43 @@ exports.Register = function(req, res) {
     if (!body.password || !body.email) {
         res.status(400).json({ success: false, message: "Password and one from name and email are required!" });
         return;
-    }   
+    }
 
-    const ibanGenerator = new IbanGenerator();
-
-    const user = new User();
-    user.iban = ibanGenerator.GenerateNewIban();
-    user.name = body.name;
-    user.email = body.email;
-    user.password = body.password;
-    user.registrationDate = new Date();
-    user.isOperator = false;
-
-    user.save((error) => {
-        if (error != null) {
-            res.status(500).json("Errore di scrittura");
+    User.findOne({ $or: [{ name: body.name }, { email: body.email }] }, (error, contact) => {
+        if (contact) {
+            res.status(500).json({ success: false, message: "There already is an user with this mail address." });
             return;
-        }
-         
-        res.status(200).json(user);
-    });
+        } else {
+            const password = CalculateSha1(body.password);
+            if (!password || !body.email) {
+                res.status(500).json({ success: false, message: "Password and mail address are required." });
+                return;
+            }
 
+            const ibanGenerator = new IbanGenerator();
+            const user = new User();
+            user.iban = ibanGenerator.GenerateNewIban();
+            user.name = body.name;
+            user.email = body.email;
+            user.password = password;
+            user.registrationDate = new Date();
+            user.isOperator = false;
+
+            user.save((error) => {
+                if (error != null) {
+                    res.status(500).json("Errore di scrittura");
+                    return;
+                }
+                
+                res.status(200).json(user);
+            });
+        }
+    });
+}
+
+
+function CalculateSha1(data) {
+    shasum = crypto.createHash('sha1')
+    shasum.update(data)
+    return shasum.digest('hex')
 }

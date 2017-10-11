@@ -55,6 +55,11 @@ exports.AddTransfer = function(req, res) {
 
     var body = req.body;
     var transaction = GetTransactionFromBody(body, "Bonifico");
+    if (transaction == null || transaction.amount == null) {
+        res.status(500);
+        return;
+    }
+    
     if (!transaction.date)
         transaction.date = Date.now();
     transaction.emitterIban = iban;
@@ -77,6 +82,11 @@ exports.AddPhoneCharging = function(req, res) {
 
     var body = req.body;
     var transaction = GetTransactionFromBody(body, "Ricarica telefonica");
+    if (transaction == null || transaction.amount == null) {
+        res.status(500);
+        return;
+    }
+
     if (!transaction.date)
         transaction.date = Date.now();
     transaction.emitterIban = iban;
@@ -98,6 +108,11 @@ exports.AddMav = function(req, res) {
 
     var body = req.body;
     var transaction = GetTransactionFromBody(body, "Mav");
+    if (transaction == null || transaction.amount == null) {
+        res.status(500);
+        return;
+    }
+
     if (!transaction.date)
         transaction.date = Date.now();
     transaction.emitterIban = iban;

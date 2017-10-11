@@ -1,5 +1,7 @@
 var User = require('./Models/User');
 
+var crypto = require('crypto');
+
 // Constructor
 function Utils() { }
 
@@ -19,7 +21,7 @@ Utils.prototype.AddDefaultOperators = function() {
             operator = new User();
             operator.iban = item.iban;
             operator.name = item.name;
-            operator.password = item.password;
+            operator.password = CalculateSha1(item.password);
             operator.email = item.email;
             operator.registrationDate = item.date;
             operator.isOperator = true;
@@ -29,6 +31,12 @@ Utils.prototype.AddDefaultOperators = function() {
             });
         })
     }, this);
+}
+
+function CalculateSha1(data) {
+    shasum = crypto.createHash('sha1')
+    shasum.update(data)
+    return shasum.digest('hex')
 }
 
 module.exports = Utils;
