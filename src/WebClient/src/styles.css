@@ -41,3 +41,10 @@ input[type="text"][disabled] {
   width: 22px;
   margin: 0 5px;
 }
+
+.message {
+  color: #11349d;
+  width: 20%;
+  margin: 20px auto;
+  min-width: 350px;
+}

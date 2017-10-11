@@ -1,6 +1,6 @@
 <a class="btn btn-default" [routerLink]="'add'">Add</a>
 
-<div class="table-responsive">
+<div class="table-responsive" *ngIf="thereAreContacts">
   <table class="table table-hover">
     <thead>
       <tr class="tablerow">
@@ -20,4 +20,10 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="container message" *ngIf="!thereAreContacts">
+  <h5>
+    Non hai aggiunto nessun contatto
+  </h5>
 </div>
