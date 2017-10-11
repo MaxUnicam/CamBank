@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var bodyParser  = require('body-parser');
 var cors = require('cors')
 
-var BankTransaction = require('./Models/BankTransaction');
+var BankTransaction = require('./Models/banktransaction');
 
 var appConfig = require('./config');
 var Utils = require('./utils');

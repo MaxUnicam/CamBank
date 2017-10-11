@@ -1,4 +1,4 @@
-var User = require('../Models/User');
+var User = require('../Models/user');
 
 exports.UserIban = function(req, res) {
     if (!req.currentIban) {

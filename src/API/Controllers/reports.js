@@ -1,4 +1,4 @@
-var BankTransaction = require('../Models/BankTransaction');
+var BankTransaction = require('../Models/banktransaction');
 var PdfGenerator = require('../pdfgenerator.js');
 
 var Decimal = require('decimal.js');

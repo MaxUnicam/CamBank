@@ -1,4 +1,4 @@
-var User = require('./Models/User');
+var User = require('./Models/user');
 
 var crypto = require('crypto');
 
