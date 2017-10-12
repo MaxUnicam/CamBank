@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Non - authenticated API
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 // middleware to verify a token
 app.use(function(req, res, next) {
@@ -71,14 +71,18 @@ app.use(function(req, res, next) {
 });
 
 // Authenticated APIs
-app.use("/transactions", transactionsRoutes);
-app.use("/contacts", contactsRoutes);
-app.use("/reports", reportsRoutes);
-app.use("/utils", utilsRoutes);
-app.use("/statistics", statisticsRoutes);
+app.use("/api/transactions", transactionsRoutes);
+app.use("/api/contacts", contactsRoutes);
+app.use("/api/reports", reportsRoutes);
+app.use("/api/utils", utilsRoutes);
+app.use("/api/statistics", statisticsRoutes);
 
 // Effettuiamo il seed del database
 utils.AddDefaultOperators();
+
+
+var distDir = __dirname + "../WebClient/dist/";
+app.use(express.static(distDir));
 
 
 var port = process.env.PORT || 8080;
