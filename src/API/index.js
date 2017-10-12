@@ -32,7 +32,6 @@ mongoose.connect(appConfig.mongoConnectionString, {
 
 // Setup web server
 var app = express();
-var port = 8080;
 
 // abilito le CORS, da valutare per la consegna
 app.use(cors());
@@ -81,6 +80,8 @@ app.use("/statistics", statisticsRoutes);
 // Effettuiamo il seed del database
 utils.AddDefaultOperators();
 
+
+var port = process.env.PORT || 8080;
 app.listen(port, (error) => {
     if (!error)
         console.log("Server listening on port: " + port);
