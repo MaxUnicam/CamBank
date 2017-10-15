@@ -4,19 +4,20 @@ var mongoose = require('mongoose');
 var bodyParser  = require('body-parser');
 var cors = require('cors')
 
-var BankTransaction = require('./Models/banktransaction');
+var BankTransaction = require('./API/Models/banktransaction');
 
-var appConfig = require('./config');
-var Utils = require('./utils');
+var appConfig = require('./API/config');
+var Utils = require('./API/utils');
 
-var authRoutes = require('./Routes/authenticate');
-var transactionsRoutes = require('./Routes/transactions');
-var reportsRoutes = require('./Routes/reports');
-var contactsRoutes = require('./Routes/contacts');
-var utilsRoutes = require('./Routes/utils');
-var statisticsRoutes = require('./Routes/statistics');
+var authRoutes = require('./API/Routes/authenticate');
+var transactionsRoutes = require('./API/Routes/transactions');
+var reportsRoutes = require('./API/Routes/reports');
+var contactsRoutes = require('./API/Routes/contacts');
+var utilsRoutes = require('./API/Routes/utils');
+var statisticsRoutes = require('./API/Routes/statistics');
 
 const utils = new Utils();
+
 
 // Connect to Mongo db
 var db = mongoose.connection;
@@ -39,8 +40,14 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+// Create link to Angular build directory
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
+
+
 // Non - authenticated API
-app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes);
 
 // middleware to verify a token
 app.use(function(req, res, next) {
@@ -71,17 +78,17 @@ app.use(function(req, res, next) {
 });
 
 // Authenticated APIs
-app.use("/api/transactions", transactionsRoutes);
-app.use("/api/contacts", contactsRoutes);
-app.use("/api/reports", reportsRoutes);
-app.use("/api/utils", utilsRoutes);
-app.use("/api/statistics", statisticsRoutes);
+app.use("/transactions", transactionsRoutes);
+app.use("/contacts", contactsRoutes);
+app.use("/reports", reportsRoutes);
+app.use("/utils", utilsRoutes);
+app.use("/statistics", statisticsRoutes);
 
 // Effettuiamo il seed del database
 utils.AddDefaultOperators();
 
 
-var distDir = __dirname + "../WebClient/dist/";
+var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
 

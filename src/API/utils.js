@@ -14,9 +14,13 @@ Utils.prototype.AddDefaultOperators = function() {
     ];
 
     operators.forEach((item) => {
+        console.log(item.name);
         User.findOne( { iban: item.iban }, (error, operator) => {
+            console.log("dentro la query");
             if (!error && operator)
                 return;
+
+                console.log("dentro la query");
 
             operator = new User();
             operator.iban = item.iban;

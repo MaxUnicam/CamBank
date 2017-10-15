@@ -4,12 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "node ../API/index.js",
+    "start": "node index.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot -prod"
+    "postinstall": "ng build"
   },
   "private": true,
   "dependencies": {
@@ -26,14 +26,19 @@
     "@types/decimal.js": "0.0.31",
     "chart.js": "^2.6.0",
     "core-js": "^2.4.1",
-    "decimal.js": "^7.2.3",
+    "decimal.js": "^7.3.0",
     "ng2-charts": "^1.6.0",
     "rxjs": "^5.1.0",
-    "zone.js": "^0.8.4"
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.3",
+    "jsonwebtoken": "^7.4.1",
+    "moment": "^2.18.1",
+    "mongoose": "^4.11.4",
+    "pdfkit": "^0.8.3",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.1",
-    "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",

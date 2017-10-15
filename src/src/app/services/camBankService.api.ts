@@ -30,16 +30,16 @@ import { Injectable } from '@angular/core';
 export class CamBankServiceApi implements CamBankService {
 
   private header = new Headers();
-  private baseUrl = '/api/';
+  private baseUrl = '';
 
   private baseForgeUrl = 'https://forex.1forge.com/1.0.2/';
   private forgePrivateKey = 'DpwTPsb4fZczl78Qpmzhadp9IWq1Qwmj';
 
 
   constructor(private http: Http) {
-    if (isDevMode()) {
-      this.baseUrl = 'http://localhost:8080/api/';
-    }
+    // if (isDevMode()) {
+    //   this.baseUrl = 'http://localhost:8080/api/';
+    // }
 
     const token = localStorage.getItem('token');
     if (token != null && token != 'null') {
