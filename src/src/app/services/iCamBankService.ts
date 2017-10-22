@@ -32,6 +32,8 @@ export interface ICamBankService {
 
   // Metodi di utilità
   operators(): Promise<IUser[]>;
+  userProfile(): Promise<IUser>;
+  editProfile(username): Promise<IUser>;
 
   outgoings(): Promise<IOutgoings>;
 
@@ -70,6 +72,8 @@ export abstract class CamBankService implements ICamBankService {
   abstract deleteContact(iban): Promise<IContact>;
 
   abstract operators(): Promise<IUser[]>;
+  abstract userProfile(): Promise<IUser>;
+  abstract editProfile(username): Promise<IUser>;
 
   abstract outgoings(): Promise<IOutgoings>;
 

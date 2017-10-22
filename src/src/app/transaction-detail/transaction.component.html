@@ -1,5 +1,9 @@
 <button (click)="goBack()" class="btn btn-default">Indietro</button>
 
+<div class="spinner-container" *ngIf="isBusy">
+    <spinner></spinner>
+  </div>
+
 <div *ngIf="transaction">
   <form class="detail-form">
     <div class="form-group">
@@ -30,6 +34,6 @@
       <label for="notes">Note</label>
       <input type="text" class="form-control" id="notes" [(ngModel)]="transaction.notes" name="notes">
     </div>
-    <button type="submit" class="btn btn-success" (click)="updateNotes()">Modifica</button>
+    <button type="submit" class="btn btn-success" (click)="updateNotes()">Salva</button>
   </form>
 </div>

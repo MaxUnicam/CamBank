@@ -26,6 +26,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { CurrenciesComponent } from './currencies/currencies.component';
 import { FooterComponent } from './footer/footer.component';
 import { ChooseContactComponent } from './choose-contact/choose-contact.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 import { TransactionCausePipe } from './shared/pipes/transactionCause.pipe';
 import { DecimalAmountPipe } from './shared/pipes/decimalAmount.pipe';
@@ -40,6 +41,8 @@ import { CamBankService } from 'app/services/iCamBankService';
 import { CamBankServiceApi } from 'app/services/camBankService.api';
 import { AuthService } from 'app/services/iAuthService';
 import { AuthServiceApi } from 'app/services/authenticationService';
+
+import { LOCALE_ID } from '@angular/core';
 
 
 // TODO: Paginare le liste e/o campi di ricerca
@@ -59,6 +62,7 @@ const appRoutes: Routes = [
   { path: 'currencies', component: CurrenciesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'profile/edit', component: EditProfileComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '',
@@ -95,6 +99,7 @@ const appRoutes: Routes = [
     CurrenciesComponent,
     FooterComponent,
     ChooseContactComponent,
+    EditProfileComponent,
 
     TransactionCausePipe,
     DecimalAmountPipe,
@@ -115,6 +120,7 @@ const appRoutes: Routes = [
     CurrenciesPipe
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'it-IT' },
     { provide: CamBankService, useClass: CamBankServiceApi },
     { provide: AuthService, useClass: AuthServiceApi }
   ],

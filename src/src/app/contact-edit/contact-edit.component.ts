@@ -35,10 +35,15 @@ export class ContactEditComponent extends BaseLocationDataComponent implements O
       return;
     }
 
+    this.isBusy = true;
     this.cambankService.contact(iban).then(contact => {
       this.contact = contact;
+      this.isBusy = false;
     },
-    reason => this.HandlerError(reason));
+    reason => {
+      this.HandlerError(reason);
+      this.isBusy = false;
+    });
   }
 
   update() {

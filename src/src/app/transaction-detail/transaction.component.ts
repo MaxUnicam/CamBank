@@ -33,19 +33,24 @@ export class TransactionDetailComponent extends BaseLocationDataComponent implem
       return;
     }
 
+    this.isBusy = true;
     this.camBankService.transaction(this.id).then(t => {
       this.transaction = t;
+      this.isBusy = false;
     },
-    reason => this.HandlerError(reason));
+    reason => {
+      this.HandlerError(reason);
+      this.isBusy = false;
+    });
 
     return this.id;
   }
 
   updateNotes() {
-    this.camBankService.updateTransactionNotes(this.transaction._id, this.transaction.notes).then(transaction => {
-      console.log(transaction);
-    },
-    reason => this.HandlerError(reason));
+    this.camBankService.updateTransactionNotes(this.transaction._id, this.transaction.notes).then(
+      transaction => { },
+      reason => this.HandlerError(reason)
+    );
   }
 
 }

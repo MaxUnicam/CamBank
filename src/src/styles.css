@@ -19,6 +19,10 @@ input[type="text"][disabled] {
   border-color: #11349d;
 }
 
+.btn-back {
+  margin-bottom: 15px;
+}
+
 .btn-default:hover {
   border-color: #11349d;
   color: #11349d;
@@ -47,4 +51,13 @@ input[type="text"][disabled] {
   width: 20%;
   margin: 20px auto;
   min-width: 350px;
+}
+
+.spinner-container {
+  width: 100px;
+  margin: 50px auto;
+}
+
+.test-advise-message {
+  font-size: 70%;
 }

@@ -23,6 +23,7 @@ export class CurrenciesComponent extends BaseDataComponent implements OnInit {
 
 
   ngOnInit() {
+    this.isBusy = true;
     this.camBankService.isMarketOpen().then(isOpen => {
       this.isMarketOpen = isOpen;
     },
@@ -30,8 +31,12 @@ export class CurrenciesComponent extends BaseDataComponent implements OnInit {
 
     this.camBankService.currenciesQuote().then(quotes => {
       this.quotes = quotes;
+      this.isBusy = false;
     },
-    reason => this.HandlerError(reason));
+    reason => {
+      this.HandlerError(reason);
+      this.isBusy = false;
+    });
   }
 
 }

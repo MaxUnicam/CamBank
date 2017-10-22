@@ -33,10 +33,15 @@ export class ContactDeleteComponent extends BaseLocationDataComponent {
       return;
     }
 
+    this.isBusy = true;
     this.cambankService.contact(iban).then(contact => {
       this.contact = contact;
+      this.isBusy = false;
     },
-    reason => this.HandlerError(reason));
+    reason => {
+      this.HandlerError(reason);
+      this.isBusy = false;
+    });
   }
 
   delete() {

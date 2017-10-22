@@ -12,7 +12,11 @@ import { Router } from '@angular/router';
 
 export class BaseDataComponent {
 
+  protected isBusy = false;
+
+
   constructor(protected camBankService: CamBankService, protected router: Router) { }
+
 
   protected HandlerError(error) {
     console.log(error);

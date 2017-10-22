@@ -1,4 +1,7 @@
 <div class="table-responsive">
+  <div class="spinner-container" *ngIf="isBusy">
+    <spinner></spinner>
+  </div>
   <table *ngIf="transactions !== undefined && transactions.length !== 0" class="table table-hover">
     <thead>
       <tr class="tablerow">
@@ -29,7 +32,7 @@
       </tr>
     </tbody>
   </table>
-  <div *ngIf="transactions === undefined || transactions.length === 0" class="message">
+  <div *ngIf="(transactions === undefined || transactions.length === 0) && !isBusy" class="message">
     <h5>Non è stato registrato alcun movimento</h5>
   </div>
 </div>

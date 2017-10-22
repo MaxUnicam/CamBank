@@ -37,9 +37,10 @@ export class CamBankServiceApi implements CamBankService {
 
 
   constructor(private http: Http) {
-    // if (isDevMode()) {
-    //   this.baseUrl = 'http://localhost:8080/api/';
-    // }
+    if (isDevMode()) {
+      this.baseUrl = 'http://localhost:8080/';
+      // this.baseUrl = 'https://cambank.herokuapp.com/';
+    }
 
     const token = localStorage.getItem('token');
     if (token != null && token != 'null') {
@@ -166,7 +167,7 @@ export class CamBankServiceApi implements CamBankService {
    */
 
   statusReport(): Promise<Blob> {
-    let pdfHeader = this.header;
+    const pdfHeader = this.header;
     pdfHeader.append('Accept', 'application/pdf');
     return this.http.get(this.baseUrl + 'reports/status', { headers: pdfHeader, responseType: ResponseContentType.Blob })
             .map(res => new Blob([res.blob()], { type: 'application/pdf' }) )
@@ -175,7 +176,7 @@ export class CamBankServiceApi implements CamBankService {
 
 
   transactionReport(id): Promise<Blob> {
-    let pdfHeader = this.header;
+    const pdfHeader = this.header;
     pdfHeader.append('Accept', 'application/pdf');
     return this.http.get(this.baseUrl + 'reports/' + id, { headers: pdfHeader, responseType: ResponseContentType.Blob })
             .map(res => new Blob([res.blob()], { type: 'application/pdf' }) )
@@ -220,6 +221,21 @@ export class CamBankServiceApi implements CamBankService {
   operators(): Promise<IUser[]> {
     return this.http.get(this.baseUrl + 'utils/operators', { headers: this.header })
             .map(res => res.json() as IUser[])
+            .toPromise();
+  }
+
+
+  userProfile(): Promise<IUser> {
+    return this.http.get(this.baseUrl + 'utils/user/detail', { headers: this.header })
+            .map(res => res.json() as IUser)
+            .toPromise();
+  }
+
+
+  editProfile(username): Promise<IUser> {
+    const body = { username: username };
+    return this.http.put(this.baseUrl + 'utils/user/edit', body, { headers: this.header })
+            .map(res => res.json() as IUser)
             .toPromise();
   }
 

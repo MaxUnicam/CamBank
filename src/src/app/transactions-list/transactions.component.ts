@@ -19,20 +19,23 @@ export class TransactionsListComponent extends BaseDataComponent implements OnIn
   transactions: IBankTransaction[];
   balance: String;
 
-
   constructor(camBankService: CamBankService, router: Router) {
     super(camBankService, router);
   }
 
   ngOnInit() {
-    this.camBankService.balance().then(balance => {
-      this.balance = balance;
-    });
-
+    this.isBusy = true;
     this.camBankService.transactions().then(transactions => {
+      this.isBusy = false;
       this.transactions = transactions;
+      this.camBankService.balance().then(balance => {
+        this.balance = balance;
+      });
     },
-    reason => this.HandlerError(reason));
+    reason => {
+      this.isBusy = false;
+      this.HandlerError(reason)
+    });
   }
 
   transactionClicked(transaction) {

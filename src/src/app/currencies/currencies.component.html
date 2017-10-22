@@ -1,7 +1,12 @@
 <h4>Il mercato è {{isMarketOpen | isOpen}}</h4>
 <br>
 
-<table class="table table-hover table-striped table-">
+<div class="spinner-container" *ngIf="isBusy">
+  <spinner></spinner>
+</div>
+
+<table class="table table-hover table-striped">
+  
   <thead>
     <tr class="tablerow">
       <th>Valute</th>
