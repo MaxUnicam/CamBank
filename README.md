@@ -10,7 +10,7 @@ Internet banking per il progetto UNICAM di programmazione web.
 - come utente voglio poter effettuare un bonifico
 - come utente voglio poter avere un grafico che mi illustra in maniera sintetica la mia situazione in banca
 
-#### User story obbligatorie
+#### User story aggiuntive
 - come visitatore (utente non loggato) voglio poter aprire un conto corrente
 - come visitatore e/o come utente voglio poter informarmi sulle prinicipali valute
 - come utente voglio poter scaricare un pdf del dettaglio dei miei movimenti
