@@ -37,10 +37,9 @@ export class CamBankServiceApi implements CamBankService {
 
 
   constructor(private http: Http) {
-    if (isDevMode()) {
-      this.baseUrl = 'http://localhost:8080/';
-      // this.baseUrl = 'https://cambank.herokuapp.com/';
-    }
+    // if (isDevMode()) {
+    //   this.baseUrl = 'http://localhost:8080/';
+    // }
 
     const token = localStorage.getItem('token');
     if (token != null && token != 'null') {
