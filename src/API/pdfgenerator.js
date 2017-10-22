@@ -21,7 +21,7 @@ PdfGenerator.prototype.GenerateStatusReport = function(transactions, currentIban
     var causeOptions = { width: 310, height: 30, ellipsis: true };
     var verticalOffset = 100;
 
-    doc.image('Assets/cambank_icon.png', 55, 40, { width: 150 });
+    doc.image('API/Assets/cambank_icon.png', 55, 40, { width: 150 });
 
     doc.font('Helvetica-Bold').fontSize(14);
     doc.text("Data", dateOffset, verticalOffset);
@@ -69,7 +69,7 @@ PdfGenerator.prototype.GenerateTransactionReport = function(transaction) {
 
     var doc = new PDFDocument();
 
-    doc.image('Assets/cambank_icon.png', titleXOffset, yOffset, { width: 150 });
+    doc.image('API/Assets/cambank_icon.png', titleXOffset, yOffset, { width: 150 });
     yOffset += 60;
     doc.fontSize(15).font('Helvetica-Bold').text("Dettagli transazione", titleXOffset, yOffset);
     yOffset += 40;
