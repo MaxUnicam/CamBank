@@ -1,0 +1,26 @@
+<h4>Il mercato è {{isMarketOpen | isOpen}}</h4>
+<br>
+
+<div class="spinner-container" *ngIf="isBusy">
+  <spinner></spinner>
+</div>
+
+<table class="table table-hover table-striped">
+  
+  <thead>
+    <tr class="tablerow">
+      <th>Valute</th>
+      <th>Cambio</th>
+      <th>Bid</th>
+      <th>Ask</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let quote of quotes" (click)="transactionClicked(transaction)">
+      <td>{{quote.symbol | currencies}}</td>
+      <td>{{quote.price}}</td>
+      <td>{{quote.bid}}</td>
+      <td>{{quote.ask}}</td>
+    </tr>
+  </tbody>
+</table>

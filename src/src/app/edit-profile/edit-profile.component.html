@@ -1,0 +1,37 @@
+<div class="container">
+
+    <h4>Il tuo profilo</h4>
+
+    <div class="row spinner-container" *ngIf="isBusy">
+        <spinner></spinner>
+    </div>
+
+
+    <div class="row" *ngIf="!isBusy">
+
+        <form class="detail-form col-md-5">
+            <div class="form-group">
+                <label for="registrationDate">Data di registrazione</label>
+                {{user.registrationDate | date:'longDate'}}
+            </div>
+            <div class="form-group">
+                <label for="iban">Iban</label>
+                <input type="text" name="iban" [(ngModel)]="user.iban" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="text" name="email" [(ngModel)]="user.email" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" [(ngModel)]="user.name" class="form-control" (keyup)="onUsernameEdited($event)">
+            </div>
+
+            <div *ngIf="updateResult != null" class="alert" [ngClass]="{'alert-danger': isError, 'alert-success': !isError}">{{updateResult}}</div>
+            <button type="submit" class="btn btn-success" (click)="update()">Salva</button>
+        </form>
+
+    </div>
+
+</div>
+

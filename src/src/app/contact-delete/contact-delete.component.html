@@ -1,0 +1,17 @@
+<button class="btn btn-default btn-back" (click)="goBack()">Indietro</button>
+
+<div class="spinner-container" *ngIf="isBusy">
+  <spinner></spinner>
+</div>
+
+<form class="detail-form" #transactionForm="ngForm" *ngIf="!isBusy">
+  <div class="form-group">
+    <label for="cause">Iban</label>
+    <input type="text" name="iban" id="iban" [ngModel]="contact.iban" class="form-control" disabled>
+  </div>
+  <div class="form-group">
+    <label for="name">Nome</label>
+    <input type="text" name="name" id="name" [ngModel]="contact.name" class="form-control" disabled>
+  </div>
+  <button type="submit" class="btn btn-danger" (click)="delete()">Elimina</button>
+</form>

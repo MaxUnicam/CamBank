@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+
+input[type="text"][disabled] {
+  color: black;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: aliceblue;
+}
+
+/* Color icon : #11349d */
+
+.btn-default {
+  border-color: #11349d;
+  color: #11349d;
+}
+
+.btn-default[disabled]:hover {
+  border-color: #11349d;
+}
+
+.btn-back {
+  margin-bottom: 15px;
+}
+
+.btn-default:hover {
+  border-color: #11349d;
+  color: #11349d;
+  background-color: #dae9ff;
+}
+
+.btn:active {
+  border-color: #11349d;
+  color: #11349d;
+  background-color: gray;
+}
+
+.btn-default:active {
+  border-color: #11349d important;
+  color: #11349d important;
+  background-color: #8abdff !important;
+}
+
+.action_icon {
+  width: 22px;
+  margin: 0 5px;
+}
+
+.message {
+  color: #11349d;
+  width: 20%;
+  margin: 20px auto;
+  min-width: 350px;
+}
+
+.spinner-container {
+  width: 100px;
+  margin: 50px auto;
+}
+
+.test-advise-message {
+  font-size: 70%;
+}

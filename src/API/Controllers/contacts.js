@@ -1,4 +1,4 @@
-var Contact = require('../Models/Contact');
+var Contact = require('../Models/contact');
 
 
 exports.Add = function(req, res) {

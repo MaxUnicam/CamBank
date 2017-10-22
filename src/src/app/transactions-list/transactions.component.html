@@ -1,0 +1,38 @@
+<div class="table-responsive">
+  <div class="spinner-container" *ngIf="isBusy">
+    <spinner></spinner>
+  </div>
+  <table *ngIf="transactions !== undefined && transactions.length !== 0" class="table table-hover">
+    <thead>
+      <tr class="tablerow">
+        <th width="12%">Data</th>
+        <th width="62%">Causale</th>
+        <th width="18%">Importo</th>
+        <th width="8%">Azioni</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{transaction.date | date: "dd/MM/yyyy"}}</td>
+        <td>{{transaction | transactionCause}}</td>
+        <td>{{transaction | decimalAmount}}</td>
+        <td>
+          <a class="action" (click)="downloadReport(transaction._id)">
+            <img class="action_icon" src="assets/icons/pdf.png" alt="Report pdf">
+          </a>
+          <a class="action" (click)="transactionClicked(transaction)">
+            <img class="action_icon" src="assets/icons/report_icon.png" alt="Dettaglio movimento">
+          </a>
+        </td>
+      </tr>
+      <tr class="balance-row">
+          <td></td>
+          <td>Saldo</td>
+          <td class="balance-value">{{balance}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="(transactions === undefined || transactions.length === 0) && !isBusy" class="message">
+    <h5>Non è stato registrato alcun movimento</h5>
+  </div>
+</div>

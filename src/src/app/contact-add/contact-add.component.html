@@ -1,0 +1,14 @@
+<button class="btn btn-default btn-back" (click)="goBack()">Indietro</button>
+
+<form class="detail-form" #transactionForm="ngForm">
+  <div class="form-group">
+    <label for="cause">Iban</label>
+    <input type="text" name="iban" id="iban" [(ngModel)]="contact.iban" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="name">Nome</label>
+    <input type="text" name="name" id="name" [(ngModel)]="contact.name" class="form-control" required>
+  </div>
+  <p class="test-advise-message">* Tutti i campi di questo form sono obbligatori</p>
+  <button type="submit" class="btn btn-success" (click)="create()" disabled="!transactionForm.isValid">Salva</button>
+</form>

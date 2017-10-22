@@ -1,0 +1,21 @@
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: aliceblue;
+}
+
+.balance-row {
+  text-align: right;
+  font-weight: bold;
+}
+
+.table-hover tbody .balance-row:hover td {
+  background-color: white;
+  cursor: default;
+}
+
+.balance-row .balance-value {
+  text-align: left;
+}
+
+.action:hover {
+  cursor: pointer;
+}
