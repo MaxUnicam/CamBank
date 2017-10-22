@@ -33,10 +33,10 @@ Nota: per scelta sia l'app in produzione su Heroku che il progetto deployato in 
 
 ## Utenti
 Alcuni utenti con cui effettuare il login per avere una situazione già "operativa" (quindi con dei dati):
-username: max
+username: max <br />
 password: pwd
 
-username: Microsoft It.
+username: Microsoft It. <br />
 password: microsoft
 
 ## Descrizione struttura
