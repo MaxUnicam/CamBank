@@ -20,7 +20,7 @@ export class ContactAddComponent extends BaseLocationDataComponent {
 
   constructor(cambankService: CamBankService, router: Router, location: Location) {
     super(cambankService, location, router);
-    this.contact = { iban: null, ownerIban: null, name: null }; 
+    this.contact = { iban: '', ownerIban: '', name: '' }; 
   }
 
   create() {

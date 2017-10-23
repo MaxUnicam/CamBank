@@ -10,5 +10,5 @@
     <input type="text" name="name" id="name" [(ngModel)]="contact.name" class="form-control" required>
   </div>
   <p class="test-advise-message">* Tutti i campi di questo form sono obbligatori</p>
-  <button type="submit" class="btn btn-success" (click)="create()" disabled="!transactionForm.isValid">Salva</button>
+  <button type="submit" class="btn btn-success" (click)="create()" [disabled]="!transactionForm.valid">Salva</button>
 </form>
