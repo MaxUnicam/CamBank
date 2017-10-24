@@ -21,6 +21,7 @@ Internet banking per il progetto UNICAM di programmazione web.
 
 ## Link
 App deployata su heroku: https://cambank.herokuapp.com
+Video su YouTube: https://youtu.be/Na3P7vM_M6g
 
 ## Deploy
 Per effettuare il deploy in locale è sufficiente eseguire pochi comandi:
